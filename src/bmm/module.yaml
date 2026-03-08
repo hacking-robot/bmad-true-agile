@@ -1,6 +1,6 @@
-code: bmm
-name: "BMad Method Agile-AI Driven-Development"
-description: "AI-driven agile development framework"
+code: bta
+name: "BMad True Agile (BMM-based)"
+description: "BMad Method with deviation detection and capacity-first sprint planning"
 default_selected: true # This module will be selected by default for new installations
 
 # Variables from Core Config inserted:

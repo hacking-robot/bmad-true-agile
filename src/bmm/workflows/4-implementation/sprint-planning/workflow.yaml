@@ -1,0 +1,40 @@
+name: sprint-planning
+description: "Plan a new sprint by selecting ready stories from any epic. One sprint active at a time, cross-epic selection, story point capacity planning."
+author: "BMad"
+
+# Critical variables from config
+config_source: "{project-root}/_bmad/bmm/config.yaml"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+date: system-generated
+implementation_artifacts: "{config_source}:implementation_artifacts"
+planning_artifacts: "{config_source}:planning_artifacts"
+
+# Workflow components
+installed_path: "{project-root}/_bmad/bmm/workflows/4-implementation/sprint-planning"
+instructions: "{installed_path}/instructions.md"
+template: "{installed_path}/sprint-template.yaml"
+validation: "{installed_path}/checklist.md"
+
+# Variables and inputs
+project_context: "**/project-context.md"
+project_name: "{config_source}:project_name"
+
+# Sprint file locations
+sprints_dir: "{implementation_artifacts}/sprints"
+velocity_log: "{sprints_dir}/velocity-log.yaml"
+
+# Source files for story discovery
+epics_location: "{planning_artifacts}"
+epics_pattern: "epic*.md"
+
+# Output configuration
+default_output_file: "{sprints_dir}/sprint-{{sprint_number}}.yaml"
+
+# Smart input file references - handles both whole docs and sharded docs
+input_file_patterns:
+  epics:
+    description: "All epics with user stories"
+    whole: "{planning_artifacts}/*epic*.md"
+    sharded: "{planning_artifacts}/*epic*/*.md"
+    load_strategy: "FULL_LOAD"

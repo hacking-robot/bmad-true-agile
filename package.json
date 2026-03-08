@@ -1,20 +1,20 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "bmad-method",
-  "version": "6.0.4",
-  "description": "Breakthrough Method of Agile AI-driven Development",
+  "name": "bmad-true-agile",
+  "version": "1.0.0",
+  "description": "BMad Method with True Agile: Deviation detection, capacity-first sprint planning",
   "keywords": [
     "agile",
     "ai",
-    "orchestrator",
-    "development",
-    "methodology",
-    "agents",
-    "bmad"
+    "deviation-detection",
+    "capacity-first",
+    "sprint-planning",
+    "bmad",
+    "true-agile"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bmad-code-org/BMAD-METHOD.git"
+    "url": "git+https://github.com/davideme/bmad-true-agile.git"
   },
   "license": "MIT",
   "author": "Brian (BMad) Madison",
