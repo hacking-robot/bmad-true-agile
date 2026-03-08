@@ -14,10 +14,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davideme/bmad-true-agile.git"
+    "url": "git+https://github.com/hacking-robot/bmad-true-agile.git"
   },
   "license": "MIT",
-  "author": "Brian (BMad) Madison",
+  "author": "hacking-robot",
   "main": "tools/cli/bmad-cli.js",
   "bin": {
     "bmad": "tools/bmad-npx-wrapper.js",
@@ -106,5 +106,12 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "contributors": [
+    "Brian (BMad) Madison"
+  ],
+  "bugs": {
+    "url": "https://github.com/hacking-robot/bmad-true-agile/issues"
+  },
+  "homepage": "https://github.com/hacking-robot/bmad-true-agile#readme"
 }
