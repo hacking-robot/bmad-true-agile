@@ -1,0 +1,24 @@
+name: refresh-story
+description: "Update an existing story with fresh context from completed stories and actual codebase implementation. Delegates to create-story in refresh mode."
+author: "BMad"
+
+config_source: "{project-root}/_bmad/bmm/config.yaml"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+document_output_language: "{config_source}:document_output_language"
+user_skill_level: "{config_source}:user_skill_level"
+date: system-generated
+planning_artifacts: "{config_source}:planning_artifacts"
+implementation_artifacts: "{config_source}:implementation_artifacts"
+
+installed_path: "{project-root}/_bmad/bmm/workflows/4-implementation/refresh-story"
+instructions: "{installed_path}/instructions.xml"
+checklist: "{installed_path}/checklist.md"
+
+# DELEGATION: This workflow delegates to create-story with mode="refresh"
+# All actual work is done by the create-story workflow
+delegates_to: "create-story"
+delegation_mode: "refresh"
+
+sprints_location: "{implementation_artifacts}/sprints"
+default_output_file: "{implementation_artifacts}/{{story_key}}.md"

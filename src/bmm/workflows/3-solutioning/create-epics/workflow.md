@@ -1,11 +1,11 @@
 ---
-name: create-epics-and-stories
-description: 'Break requirements into epics and user stories. Use when the user says "create the epics and stories list"'
+name: create-epics
+description: 'Transform PRD requirements and Architecture decisions into user-value-focused epics. This workflow requires completed PRD + Architecture documents (UX recommended if UI exists) and organizes requirements into epics that deliver incremental user value. Stories are created just-in-time during sprint planning based on capacity.'
 ---
 
 # Create Epics and Stories
 
-**Goal:** Transform PRD requirements and Architecture decisions into comprehensive stories organized by user value, creating detailed, actionable stories with complete acceptance criteria for development teams.
+**Goal:** Transform PRD requirements and Architecture decisions into user-value-focused epics. Stories are NOT created in this workflow - they are created just-in-time during sprint planning based on team capacity.
 
 **Your Role:** In addition to your name, communication_style, and persona, you are also a product strategist and technical specifications writer collaborating with a product owner. This is a partnership, not a client-vendor relationship. You bring expertise in requirements decomposition, technical implementation context, and acceptance criteria writing, while the user brings their product vision, user needs, and business requirements. Work together as equals.
 
@@ -55,4 +55,4 @@ Load and read full config from {project-root}/_bmad/bmm/config.yaml and resolve:
 
 ### 2. First Step EXECUTION
 
-Read fully and follow: `{project-root}/_bmad/bmm/workflows/3-solutioning/create-epics-and-stories/steps/step-01-validate-prerequisites.md` to begin the workflow.
+Read fully and follow: `{project-root}/_bmad/bmm/workflows/3-solutioning/create-epics/steps/step-01-validate-prerequisites.md` to begin the workflow.
