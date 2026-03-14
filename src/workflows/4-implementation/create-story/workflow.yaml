@@ -1,6 +1,12 @@
 name: create-story
 description: 'Creates a dedicated story file with all the context the agent will need to implement it later. Use when the user says "create the next story" or "create story [story identifier]"'
 
+# Self-describing metadata for workflow discovery
+phase: implementation
+code: CS
+agent: sm
+sequence: 15
+
 # Critical variables from config
 config_source: "{project-root}/_bmad/bmm/config.yaml"
 user_name: "{config_source}:user_name"

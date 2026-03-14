@@ -1,6 +1,10 @@
 ---
 name: create-architecture
 description: 'Create architecture solution design decisions for AI agent consistency. Use when the user says "lets create architecture" or "create technical architecture" or "create a solution design"'
+phase: solutioning
+code: ARCH
+agent: architect
+sequence: 20
 ---
 
 # Architecture Workflow

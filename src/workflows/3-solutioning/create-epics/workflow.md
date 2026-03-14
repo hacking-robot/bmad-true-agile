@@ -1,6 +1,11 @@
 ---
 name: create-epics
 description: 'Transform PRD requirements and Architecture decisions into user-value-focused epics. This workflow requires completed PRD + Architecture documents (UX recommended if UI exists) and organizes requirements into epics that deliver incremental user value. Stories are created just-in-time during sprint planning based on capacity.'
+phase: solutioning
+code: CE
+agent: pm
+sequence: 30
+tooltip: "Creates epic containers only; stories created during sprint planning."
 ---
 
 # Create Epics and Stories

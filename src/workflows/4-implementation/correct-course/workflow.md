@@ -1,6 +1,10 @@
 ---
 name: correct-course
 description: 'Manage significant changes during sprint execution. Use when the user says "correct course" or "propose sprint change"'
+phase: implementation
+code: CC
+agent: sm
+sequence: 40
 ---
 
 # Correct Course - Sprint Change Management Workflow
