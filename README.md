@@ -1,6 +1,6 @@
-# BMad True Agile (BTA)
+# BMad True Agile (BMM)
 
-A standalone BMad module for True Agile development with deviation detection and capacity-first sprint planning.
+A BMad module for True Agile development with deviation detection and capacity-first sprint planning. This is a drop-in replacement for the official `bmm` module.
 
 ## What is True Agile?
 
@@ -14,11 +14,11 @@ True Agile extends BMad Method with:
 
 ### Via bmadboard
 
-BTA is designed to work with [bmadboard](https://github.com/hacking-robot/bmadboard) - just add as a GitHub module:
+Install as a GitHub module to override the official bmm module:
 
 1. Open bmadboard
 2. Add GitHub module: `hacking-robot/bmad-true-agile`
-3. Install with core module
+3. Install with core module (this module will be used as `bmm`)
 
 ### Manual Installation (with official bmad-method CLI)
 
@@ -33,7 +33,7 @@ npx bmad-method install --custom-content ./bmad-true-agile/src
 
 ## Module Code
 
-`bta` - Use this code when selecting modules in bmadboard or CLI.
+`bmm` - Uses the same module code as the official BMad Method module.
 
 ## Features
 
