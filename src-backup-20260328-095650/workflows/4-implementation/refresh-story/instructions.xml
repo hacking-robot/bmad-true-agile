@@ -1,0 +1,25 @@
+<workflow>
+  <critical>The workflow execution engine is governed by {project-root}/_bmad/core/tasks/workflow.xml</critical>
+  <critical>You MUST have already loaded and processed: {installed_path}/workflow.yaml</critical>
+  <critical>Communicate all responses in {communication_language} and generate all documents in {document_output_language}</critical>
+
+  <critical>🔄 REFRESH STORY - Thin wrapper around create-story workflow</critical>
+  <critical>This workflow DELEGATES to create-story with mode="refresh" for unified story management</critical>
+
+  <step n="1" goal="Delegate to create-story in refresh mode">
+    <action>Invoke create-story workflow with the following parameters:</action>
+    - mode: "refresh"
+    - story_path: {{story_path}} (if provided by user)
+    
+    <note>The create-story workflow handles all refresh logic:
+      - Loading existing story file
+      - Analyzing completed stories and git history
+      - Gathering latest codebase context
+      - Updating Dev Notes with implementation intelligence
+      - Preserving user edits while refreshing context
+    </note>
+    
+    <action>Execute: create-story(mode="refresh", story_path={{story_path}})</action>
+  </step>
+
+</workflow>

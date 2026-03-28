@@ -1,7 +1,7 @@
 code: bmm
-name: "BMad Method True Agile (Enhanced BMM)"
-description: "AI-driven agile development framework with true agile enhancements - sprint review, backlog refinement, JIRA integration, and more"
-default_selected: true
+name: "BMad Method"
+description: "BMad Method with deviation detection and capacity-first sprint planning"
+default_selected: true # This module will be selected by default for new installations
 
 # Variables from Core Config inserted:
 ## user_name
@@ -28,22 +28,22 @@ user_skill_level:
     - value: "expert"
       label: "Expert - Be direct and technical"
 
-planning_artifacts:
+planning_artifacts: # Phase 1-3 artifacts
   prompt: "Where should planning artifacts be stored? (Brainstorming, Briefs, PRDs, UX Designs, Architecture, Epics)"
   default: "{output_folder}/planning-artifacts"
   result: "{project-root}/{value}"
 
-implementation_artifacts:
+implementation_artifacts: # Phase 4 artifacts and quick-dev flow output
   prompt: "Where should implementation artifacts be stored? (Sprint status, stories, reviews, retrospectives, Quick Flow output)"
   default: "{output_folder}/implementation-artifacts"
   result: "{project-root}/{value}"
 
-project_knowledge:
+project_knowledge: # Artifacts from research, document-project output, other long lived accurate knowledge
   prompt: "Where should long-term project knowledge be stored? (docs, research, references)"
   default: "docs"
   result: "{project-root}/{value}"
 
-# Directories to create during installation
+# Directories to create during installation (declarative, no code execution)
 directories:
   - "{planning_artifacts}"
   - "{implementation_artifacts}"
