@@ -14,17 +14,11 @@ A drop-in replacement for the official BMad Method `bmm` module with True Agile 
 ## Installation
 
 ```bash
-# 1. Clone this repo
 git clone https://github.com/hacking-robot/bmad-true-agile.git
-
-# 2. Install into your project
-npx bmad-method install \
-  --custom-content ./bmad-true-agile/src \
-  --tools claude-code \
-  --directory /path/to/your/project
+npx bmad-method install --custom-content ./bmad-true-agile/src
 ```
 
-When prompted to select modules, **do not select the official bmm module** -- this repo replaces it. Select only `core` and any other modules you want.
+The installer will walk you through the rest. When prompted to select modules, **do not select the official `bmm` module** -- this repo replaces it.
 
 To update, pull the latest and re-run the same command.
 
@@ -32,7 +26,7 @@ To update, pull the latest and re-run the same command.
 
 - Node.js 18+
 - [BMad Method CLI](https://github.com/bmad-code-org/BMAD-METHOD) (`npx bmad-method`)
-- Claude Code (currently the only supported IDE tool)
+- Claude Code
 
 ## Usage
 
