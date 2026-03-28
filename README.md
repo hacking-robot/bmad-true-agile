@@ -13,28 +13,20 @@ A drop-in replacement for the official BMad Method `bmm` module with True Agile 
 
 ## Installation
 
-### Fresh Project
-
 ```bash
+# 1. Clone this repo
+git clone https://github.com/hacking-robot/bmad-true-agile.git
+
+# 2. Install into your project (replaces the official bmm module)
 npx bmad-method install \
   --modules "" \
-  --custom-content /path/to/bmad-true-agile/src \
+  --custom-content ./bmad-true-agile/src \
   --tools claude-code \
   --yes \
   --directory /path/to/your/project
 ```
 
-### Existing Project (Update)
-
-```bash
-# Same command — installer handles updates
-npx bmad-method install \
-  --modules "" \
-  --custom-content /path/to/bmad-true-agile/src \
-  --tools claude-code \
-  --yes \
-  --directory /path/to/existing/project
-```
+To update, pull the latest and re-run the same command.
 
 ### Requirements
 
@@ -44,62 +36,62 @@ npx bmad-method install \
 
 ## Usage
 
-### Phase 1 — Analysis
+### Phase 1 - Analysis
 
 ```
-bmad-brainstorming            optional — explore ideas
-bmad-market-research          optional — competitive landscape
-bmad-domain-research          optional — industry deep dive
-bmad-technical-research       optional — tech feasibility
+bmad-brainstorming            optional - explore ideas
+bmad-market-research          optional - competitive landscape
+bmad-domain-research          optional - industry deep dive
+bmad-technical-research       optional - tech feasibility
 bmad-product-brief            nail down the product idea
 ```
 
-### Phase 2 — Planning
+### Phase 2 - Planning
 
 ```
-bmad-create-prd               required — product requirements document
-bmad-validate-prd             recommended — validate the PRD
+bmad-create-prd               required - product requirements document
+bmad-validate-prd             recommended - validate the PRD
 bmad-create-ux-design         if the project has a UI
 ```
 
-### Phase 3 — Solutioning
+### Phase 3 - Solutioning
 
 ```
-bmad-create-architecture      required — technical decisions
+bmad-create-architecture      required - technical decisions
 bmad-create-epics-and-stories creates epic containers only (no stories)
 bmad-check-implementation-readiness   validate alignment across all docs
 ```
 
-### Phase 4 — Sprint Cycle
+### Phase 4 - Sprint Cycle
 
 ```
 bmad-sprint-planning          select stories from epics, create sprint plan
-  │
-  ▼
-┌──────────────────────────────────────────────────┐
-│ Story Cycle (repeat for each story in sprint)     │
-│                                                   │
-│  bmad-create-story      prepare story with detail │
-│         │                                         │
-│         ▼                                         │
-│  bmad-dev-story         implement the story       │
-│         │                                         │
-│         ▼                                         │
-│  bmad-code-review       adversarial review        │
-│         │                                         │
-│         ├── issues found ──▶ back to dev-story    │
-│         └── approved ──────▶ next story           │
-│                                                   │
-│  bmad-qa-generate-e2e-tests   optional            │
-└──────────────────────────────────────────────────┘
-  │
-  ▼
+  |
+  v
++--------------------------------------------------+
+| Story Cycle (repeat for each story in sprint)     |
+|                                                   |
+|  bmad-create-story      prepare story with detail |
+|         |                                         |
+|         v                                         |
+|  bmad-dev-story         implement the story       |
+|         |                                         |
+|         v                                         |
+|  bmad-code-review       adversarial review        |
+|         |                                         |
+|         +-- issues found --> back to dev-story    |
+|         +-- approved ------> next story           |
+|                                                   |
+|  bmad-qa-generate-e2e-tests   optional            |
++--------------------------------------------------+
+  |
+  v
 bmad-sprint-review             close sprint, calculate velocity
-  │
-  ▼
-bmad-retrospective             at epic end — review lessons learned
-  │
-  ▼
+  |
+  v
+bmad-retrospective             at epic end - review lessons learned
+  |
+  v
 bmad-sprint-planning           plan next sprint (loop back)
 ```
 
@@ -113,17 +105,17 @@ bmad-sprint-planning           plan next sprint (loop back)
 | `bmad-backlog-refinement` | BR | Upgrade story detail level before planning |
 | `bmad-jira-link` | JL | Link stories to JIRA |
 | `bmad-migrate-to-multi-sprint` | MTMS | Convert single-sprint to multi-sprint |
-| `bmad-quick-dev` | QQ | Skip ceremony — intent in, code out |
+| `bmad-quick-dev` | QQ | Skip ceremony - intent in, code out |
 
-### Quick Start (Skip the Ceremony)
+### Quick Start
 
 Already have a PRD and architecture? Jump straight to:
 
 ```
-bmad-sprint-planning    →    bmad-create-story    →    bmad-dev-story
+bmad-sprint-planning    ->    bmad-create-story    ->    bmad-dev-story
 ```
 
-Or go even faster:
+Or skip all ceremony:
 
 ```
 bmad-quick-dev          intent in, code out
