@@ -27,7 +27,7 @@ PURPOSE: Migrate an existing BMAD project from the old "all stories upfront" app
 |------|--------|--------|
 | **Done stories in epics.md** | Keep as-is | Historical record, proves epic progress |
 | **Done story files** | Keep as-is | Contains completed work, decisions, useful history |
-| **Undone stories in epics.md** | Keep as-is | Sprint-planning references them as context/suggestions |
+| **Undone stories in epics.md** | Remove | Sprint-planning re-analyzes from FRs, NFRs, Architecture, and epic scope |
 | **Undone story files** | Archive to `archive/` | Preserve detailed planning, avoid conflicts with new creations |
 | **sprint-status.yaml** | Archive | Replaced by sprint-N.yaml files |
 
@@ -112,7 +112,7 @@ Update epics.md to new format:
 **Epic Status Rules:**
 - All stories done → epic status: `done`
 - Some stories done → epic status: `in-progress`
-- No stories done → epic status: `not-started`
+- No stories done → epic status: `not-started` (undone stories are removed)
 
 ```
 ## Epic 1: User Authentication
@@ -134,9 +134,8 @@ Goal: Users can securely authenticate and manage their sessions
 | 1-2-user-registration | User Registration | 5 | done |
 | 1-3-user-profile | User Profile | 3 | done |
 | 1-4-password-reset | Password Reset | 5 | done |
-| 1-5-logout | Logout | 2 | not-done |
 
-**Total Points:** 20 (18 done, 2 remaining)
+**Total Points:** 18 (18 done, 0 remaining)
 ```
 
 ### Step 4: Archive Undone Story Files
@@ -161,8 +160,8 @@ Moving to implementation-artifacts/archive/:
 
 **Why archive?**
 - Sprint-planning will CREATE fresh story files with potentially different structure
-- Archived files preserve original planning context
-- User can reference archived files during sprint-planning
+- Archived files are for historical reference only, not loaded by sprint-planning
+- Sprint-planning analyzes requirements (FRs, NFRs, Architecture) fresh to create stories
 
 ### Step 5: Create Historical Sprint File (Optional)
 
@@ -226,7 +225,7 @@ Display migration summary:
 📊 Summary:
 ├── Epics migrated: 3
 ├── Done stories preserved: 6 (26 points)
-├── Not-done stories preserved: 8 (in epics.md for reference)
+├── Not-done stories removed: 8 (files archived)
 ├── Story files archived: 8
 ├── Historical sprint created: Sprint 1 (26 pts)
 └── Velocity log created: Yes
@@ -234,8 +233,7 @@ Display migration summary:
 📋 Next Steps:
 1. Review epic files to verify story status
 2. Run `/bmad-bmm-sprint-planning` to plan your next sprint
-3. Sprint-planning will show not-done stories as "previously planned"
-4. You can use, modify, or replace them based on current understanding
+3. Sprint-planning will analyze requirements fresh to create stories
 
 📁 Files Changed:
 ├── epics.md (updated with new format)
@@ -251,25 +249,25 @@ Display migration summary:
 
 When you run sprint-planning after migration:
 
-1. **Agent loads epics.md** and finds undone stories
-2. **Agent displays context:**
+1. **Agent loads epics.md** and finds done stories and remaining FR coverage gaps
+2. **Agent loads PRD, Architecture, and NFRs** for full context
+3. **Agent displays context:**
    ```
    📦 Epic 1: User Auth (status: in-progress)
-   
-   Previously planned stories (not yet done):
-   ├── 1-5-logout: Logout (2 pts estimated)
-   
-   Remaining FRs to cover: FR-5 (Logout flow)
-   ```
-3. **You set capacity:** "I want 15 points this sprint"
-4. **You select epics:** "Work on Epic 1 and start Epic 2"
-5. **Agent proposes stories:**
-   - Uses existing 1-5-logout as suggestion
-   - Creates new stories for Epic 2 based on FRs and capacity
-6. **You approve/adjust** the proposed stories
-7. **Stories are created** and appended to epics.md
 
-This preserves planning intelligence while enabling capacity-first approach.
+   Remaining FRs to cover: FR-5 (Logout flow)
+   Relevant NFRs: NFR-2 (Session security)
+   Architecture considerations: Token-based auth layer
+   ```
+4. **You set capacity:** "I want 15 points this sprint"
+5. **You select epics:** "Work on Epic 1 and start Epic 2"
+6. **Agent proposes stories:**
+   - Analyzes FRs, NFRs, Architecture, and epic scope
+   - Creates stories sized to fit capacity
+7. **You approve/adjust** the proposed stories
+8. **Stories are created** and appended to epics.md
+
+Sprint-planning does a fresh analysis from all available inputs, not relying on previously planned stories.
 
 ---
 
@@ -278,7 +276,7 @@ This preserves planning intelligence while enabling capacity-first approach.
 | Issue | Solution |
 |-------|----------|
 | Story points seem wrong | Update directly in epics.md before sprint-planning |
-| Undone stories no longer relevant | Sprint-planning can create fresh, archive is just reference |
+| Undone stories no longer relevant | Sprint-planning analyzes fresh from requirements, archive is just reference |
 | Missing FR coverage | Add FRs to epic section in epics.md |
 | Epic status incorrect | Update status field in epics.md |
 
@@ -303,4 +301,4 @@ After migration:
 1. ✅ Run `/bmad-bmm-sprint-status` - should show epic progress
 2. ✅ Check epics.md - should have status fields and story tables
 3. ✅ Check archive/ - should contain undone story files
-4. ✅ Run `/bmad-bmm-sprint-planning` - should show undone stories as context
+4. ✅ Run `/bmad-bmm-sprint-planning` - should analyze requirements fresh to create stories

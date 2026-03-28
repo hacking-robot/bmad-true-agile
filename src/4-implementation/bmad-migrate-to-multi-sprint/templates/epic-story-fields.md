@@ -23,7 +23,7 @@ Acceptance Criteria:
 ### Story 1.2: User Login
 key: 1-2-user-login
 points: 5
-detail_level: ready
+status: done
 jira_key: null
 
 As a returning user,
@@ -42,23 +42,19 @@ Acceptance Criteria:
 |-------|------|-------------|
 | `key` | string | Story identifier: `{epic}-{story}-{slug}` |
 | `points` | number | Story point estimate (1, 2, 3, 5, 8, 13, 21) |
-| `detail_level` | enum | `ready`, `outlined`, or `placeholder` |
+| `status` | enum | `done` (only done stories remain in epics.md after migration) |
 | `jira_key` | string | Optional Jira issue key (e.g., PROJ-123) |
-
-## Detail Levels
-
-- `ready` - Full user story + acceptance criteria, can be selected for sprint
-- `outlined` - Brief description only, needs backlog refinement
-- `placeholder` - Title only, needs backlog refinement
 
 ## Story Summary Table (added to each epic section)
 
+Only done stories appear in the table after migration. Undone stories are removed and their files archived.
+
 ```markdown
 **Story Summary:**
-| Story | Title | Points | Detail Level |
-|-------|-------|--------|--------------|
-| 1.1 | User Registration | 5 | ready |
-| 1.2 | User Login | 5 | ready |
-| 1.3 | Password Reset | 3 | ready |
+| Story | Title | Points | Status |
+|-------|-------|--------|--------|
+| 1.1 | User Registration | 5 | done |
+| 1.2 | User Login | 5 | done |
+| 1.3 | Password Reset | 3 | done |
 | **Total** | | **13** | |
 ```

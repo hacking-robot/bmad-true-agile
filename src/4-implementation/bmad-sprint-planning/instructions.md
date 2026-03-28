@@ -123,7 +123,7 @@ You must close the current sprint before creating a new one.
 <step n="3" goal="Select Epics for Sprint">
 
 <action>Display all epics from {planning_artifacts}</action>
-<action>For each epic, show: status, remaining FRs, previously planned undone stories (if any)</action>
+<action>For each epic, show: status, remaining FRs, relevant NFRs</action>
 
 <output>
 📦 **Available Epics:**
@@ -131,14 +131,8 @@ You must close the current sprint before creating a new one.
 | Epic | Title | Status | Remaining Work |
 |------|-------|--------|----------------|
 {{for each epic}}
-| {{epic_number}} | {{epic_title}} | {{epic_status}} | {{remaining_description}} |
-
-**Previously Planned Stories (not yet done):**
-{{for each epic with undone stories}}
-- Epic {{epic_number}}: {{undone_story_titles}}
+| {{epic_number}} | {{epic_title}} | {{epic_status}} | {{remaining_frs}} (FRs), {{relevant_nfrs}} (NFRs) |
 {{end}}
-
-💡 These undone stories are suggestions. You can use them, modify them, or create fresh stories.
 </output>
 
 <ask>Which epic(s) do you want to work on this sprint? (Enter epic numbers, comma-separated)</ask>
@@ -283,9 +277,13 @@ No significant drift detected between planning documents and codebase.
 <step n="5" goal="Create Stories for Each Epic">
 
 <action>For each epic in {{selected_epics}}:</action>
-<action>Load epic file, PRD, Architecture</action>
-<action>Identify FRs not yet covered by done stories</action>
-<action>Check for previously planned undone stories (from migration or earlier sprints)</action>
+<action>Load epic file — use the Requirements Inventory (FRs, NFRs, additional requirements, FR coverage map), epic scope, description, and dependencies</action>
+<action>Load PRD and Architecture for additional context</action>
+<action>Load UX Design document if it exists (for interaction patterns and UI requirements)</action>
+<action>Identify FRs not yet covered by done stories (using FR coverage map and story status)</action>
+<action>Identify NFRs relevant to this epic's domain (from NFR list)</action>
+<action>Analyze Architecture for technical requirements and prerequisites</action>
+<action>Review additional requirements from Architecture/UX that apply to this epic</action>
 
 <output>
 ──────────────────────────────────────────────────────────────
@@ -294,16 +292,21 @@ No significant drift detected between planning documents and codebase.
 **Epic:** {{epic_title}}
 **Goal:** {{epic_goal}}
 **FRs to cover:** {{remaining_frs}}
-
-**Previously Planned (undone):**
-{{for each undone story}}
-- {{story_key}}: {{story_title}} ({{story_points}} pts) - can use/modify/replace
-{{end}}
+**Relevant NFRs:** {{relevant_nfrs}}
+**Architecture considerations:** {{architecture_needs}}
+**Additional requirements:** {{additional_reqs}}
+**Epic scope:** {{epic_scope}}
+**Epic dependencies:** {{epic_dependencies}}
 </output>
 
-<action>Analyze FRs and epic scope</action>
+<action>Analyze FRs, NFRs, Architecture, UX, and epic scope</action>
 <action>Propose stories that:
-  - Cover remaining FRs
+  - Cover remaining requirements (FRs, NFRs, architecture needs, UX requirements)
+  - Address technical prerequisites from Architecture
+  - Cover NFRs applicable to this epic's domain
+  - Incorporate UX interaction patterns and UI requirements (if UX doc exists)
+  - Respect epic scope boundaries (in-scope vs out-of-scope)
+  - Account for epic dependencies
   - Fit within allocated points
   - Are appropriately sized (ideally 3-8 pts each)
   - Can be done by single developer
@@ -326,7 +329,7 @@ CARRYOVER AND NEW STORY KEY RULES:
 {{for each proposed story}}
 │ Story {{story_key}}: {{story_title}}
 │ Points: {{story_points}}
-│ Covers: {{frs_covered}}
+│ Covers: {{requirements_covered}}
 │ 
 │ Acceptance Criteria:
 {{for each AC}}

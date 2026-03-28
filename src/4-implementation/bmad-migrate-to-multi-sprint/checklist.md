@@ -20,7 +20,7 @@ Use this checklist to verify the migration to true agile is complete and correct
 - [ ] Story Summary table added to each epic section
 - [ ] All DONE stories have `points: N` field
 - [ ] All stories have `key: X-Y-slug` field
-- [ ] All stories have `status: done | not-done` field
+- [ ] All stories in table have `status: done` (undone stories removed)
 - [ ] detail_level field REMOVED (no longer used)
 - [ ] Epic status matches story completion (all done → done, some done → in-progress)
 
@@ -67,7 +67,7 @@ Use this checklist to verify the migration to true agile is complete and correct
 - [ ] Epic files render correctly (no broken formatting)
 - [ ] Sprint files are valid YAML
 - [ ] Archive directory contains correct files
-- [ ] Sprint-planning shows not-done stories as context
+- [ ] Sprint-planning analyzes requirements fresh to create stories
 
 ---
 
@@ -76,14 +76,15 @@ Use this checklist to verify the migration to true agile is complete and correct
 After migration, the workflow is:
 
 1. **sprint-planning CREATES stories** based on capacity (not selects from backlog)
-2. **Not-done stories in epics.md** are REFERENCE/SUGGESTIONS (not commitments)
-3. **Archived story files** preserve original planning for context
-4. **backlog-refinement workflow** is DEPRECATED (no longer exists)
+2. **Done stories in epics.md** are preserved as historical record
+3. **Undone stories are removed** from epics.md (files archived for reference)
+4. **Sprint-planning analyzes fresh** from FRs, NFRs, Architecture, and epic scope
+5. **backlog-refinement workflow** is DEPRECATED (no longer exists)
 
 When you run sprint-planning:
-- Agent shows not-done stories as "previously planned"
-- You can use them as-is, modify, or create fresh
-- Stories are created to fit your capacity target
+- Agent loads PRD, Architecture, NFRs, and epic scope
+- Agent identifies remaining FRs not covered by done stories
+- Agent creates stories sized to fit your capacity target
 
 ---
 
@@ -95,4 +96,4 @@ When you run sprint-planning:
 | Points seem wrong | Update directly in epics.md Story Summary table |
 | Missing FRs | Add to FRs Covered section in epic |
 | Story in wrong epic | Move row in Story Summary table |
-| Want fresh stories | Sprint-planning can create new, archive is just reference |
+| Want fresh stories | Sprint-planning always creates fresh stories from requirements analysis |
