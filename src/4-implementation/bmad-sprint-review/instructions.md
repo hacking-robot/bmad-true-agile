@@ -56,7 +56,31 @@ Proceeding with sprint review...
   </check>
 </step>
 
-<step n="2" goal="Review sprint stories by epic">
+<step n="2" goal="Sync story statuses from sprint-status.yaml into sprint file">
+  <action>Load {sprint_status} file (sprint-status.yaml)</action>
+
+  <check if="sprint-status.yaml does not exist">
+    <output>No sprint-status.yaml found - story statuses in sprint file will be used as-is.</output>
+  </check>
+
+  <check if="sprint-status.yaml exists">
+    <action>For each story in planned_stories of the sprint file:</action>
+    <action>  Find matching key in sprint-status.yaml development_status</action>
+    <action>  Map sprint-status value to sprint file status:</action>
+    <action>    ready-for-dev -> planned</action>
+    <action>    in-progress -> in-progress</action>
+    <action>    review -> review</action>
+    <action>    done -> done</action>
+    <action>  Update planned_stories[].status with the mapped value</action>
+
+    <action>Recalculate completed_points = sum of points for stories with status = done</action>
+    <action>Save the updated sprint file preserving all comments and structure</action>
+
+    <output>Sprint file synced with sprint-status.yaml - story statuses updated.</output>
+  </check>
+</step>
+
+<step n="3" goal="Review sprint stories by epic">
   <action>For each story in planned_stories, load its details from epic files</action>
   <action>Group stories by epic for display</action>
   <action>Calculate completed points and remaining points</action>
@@ -94,7 +118,7 @@ Proceeding with sprint review...
   </output>
 </step>
 
-<step n="3" goal="Handle incomplete stories">
+<step n="4" goal="Handle incomplete stories">
   <action>For each story with status != done:</action>
   <action>Ask user how to handle it</action>
   
@@ -132,7 +156,7 @@ Story 1.3 Password Reset (in-progress, 2 pts)
   </check>
 </step>
 
-<step n="4" goal="Calculate and record velocity">
+<step n="5" goal="Calculate and record velocity">
   <action>Calculate velocity = sum of points for stories with status = done</action>
   <action>Set {{sprint_velocity}}</action>
   
@@ -167,7 +191,7 @@ Historical Velocity:
   </output>
 </step>
 
-<step n="5" goal="Close sprint file">
+<step n="6" goal="Close sprint file">
   <action>Update sprint file with:</action>
   <action>  - status: completed</action>
   <action>  - actual_end: today's date</action>
@@ -200,7 +224,7 @@ Would you like to run retrospective now? (Y/N)
   </check>
 </step>
 
-<step n="6" goal="Create sprint review document">
+<step n="7" goal="Create sprint review document">
   <action>Create sprint-{{sprint_number}}-review.md with:</action>
   <action>  - Sprint summary</action>
   <action>  - Completed stories by epic</action>
