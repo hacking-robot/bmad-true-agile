@@ -4,12 +4,12 @@ A drop-in replacement for the official BMad Method `bmm` module with True Agile 
 
 ## What's Different from Official BMM
 
-- **No stories during epic creation** — epics are containers only; stories are created just-in-time during sprint planning
-- **Deviation detection** — automatically detect drift between PRD/Architecture and the actual codebase during sprint planning
-- **Capacity-first planning** — plan sprints based on realistic team capacity, not wishful estimates
-- **Full sprint lifecycle** — sprint review, backlog refinement, retrospectives, story refresh
-- **JIRA integration** — link BMAD stories to JIRA issues
-- **Multi-sprint migration** — convert single-sprint projects to multi-sprint structure
+- **No stories during epic creation** -- epics are containers only; stories are created just-in-time during sprint planning
+- **Deviation detection** -- automatically detect drift between PRD/Architecture and the actual codebase during sprint planning
+- **Capacity-first planning** -- plan sprints based on realistic team capacity, not wishful estimates
+- **Full sprint lifecycle** -- sprint review, backlog refinement, retrospectives, story refresh
+- **JIRA integration** -- link BMAD stories to JIRA issues
+- **Multi-sprint migration** -- convert single-sprint projects to multi-sprint structure
 
 ## Installation
 
@@ -17,14 +17,14 @@ A drop-in replacement for the official BMad Method `bmm` module with True Agile 
 # 1. Clone this repo
 git clone https://github.com/hacking-robot/bmad-true-agile.git
 
-# 2. Install into your project (replaces the official bmm module)
+# 2. Install into your project
 npx bmad-method install \
-  --modules "" \
   --custom-content ./bmad-true-agile/src \
   --tools claude-code \
-  --yes \
   --directory /path/to/your/project
 ```
+
+When prompted to select modules, **do not select the official bmm module** -- this repo replaces it. Select only `core` and any other modules you want.
 
 To update, pull the latest and re-run the same command.
 
