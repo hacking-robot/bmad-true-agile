@@ -4,6 +4,16 @@
 <critical>You MUST have already loaded and processed: {project-root}/_bmad/bmm/workflows/4-implementation/sprint-planning/workflow.yaml</critical>
 <critical>Communicate all responses in {communication_language}</critical>
 
+<critical>
+STORY NAMING CONVENTION - READ CAREFULLY:
+- Story display format: "Story {epic_number}.{story_sequence}: {title}" (e.g., "Story 2.1: User Login")
+- Story key format: "{epic_number}-{story_sequence}-{slug}" (e.g., "2-1-user-login")
+- The first number in EVERY story name and key is the EPIC number, NEVER the sprint number.
+- Example: Story "3.2" means Epic 3 Story 2. If this story appears in Sprint 1 or Sprint 5, it is still "3.2" with key "3-2-...".
+- When carrying over undone stories from a previous sprint, you MUST preserve their original keys exactly. Do NOT renumber them to match the new sprint.
+- When creating NEW stories, use the parent EPIC number (not the sprint number) as the first number in the key.
+</critical>
+
 ## 📚 Overview
 
 This workflow CREATES stories for a sprint based on capacity. Key features:
@@ -299,6 +309,15 @@ No significant drift detected between planning documents and codebase.
   - Can be done by single developer
   - Have clear acceptance criteria
 </action>
+
+<critical>
+CARRYOVER AND NEW STORY KEY RULES:
+- For CARRYOVER stories (from previous sprints): Reuse the EXACT original story_key and story name. Do NOT modify the numbering.
+  Example: A carryover story with key "1-3-password-reset" from Sprint 1 stays "1-3-password-reset" in Sprint 2.
+- For NEW stories: Use the current epic's number as the prefix, and increment the story sequence from the last existing story in that epic.
+  Example: If Epic 2 already has stories 2.1 and 2.2, the next new story is 2.3 with key "2-3-{slug}".
+- NEVER use the sprint number as the story key prefix.
+</critical>
 
 <output>
 **Proposed Stories:**

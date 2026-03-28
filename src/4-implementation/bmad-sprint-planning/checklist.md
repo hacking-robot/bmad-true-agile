@@ -31,3 +31,10 @@ Epic Files Contains:                Sprint Status Contains:
 - [ ] Total count of epics matches
 - [ ] Total count of stories matches
 - [ ] All items are in the expected order (epic, stories, retrospective)
+
+### Story Naming Validation
+
+- [ ] Every story key starts with its parent EPIC number (not sprint number)
+- [ ] Carryover stories from previous sprints preserved their original keys exactly
+- [ ] No story keys were renumbered to match the current sprint number
+- [ ] New story sequences correctly increment from the last existing story in their epic
