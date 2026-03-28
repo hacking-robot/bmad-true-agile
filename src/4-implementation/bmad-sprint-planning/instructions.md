@@ -465,15 +465,6 @@ Options:
 📝 Appending stories to epic files...
 </output>
 
-<critical>🔄 INVOKE CREATE-STORY WORKFLOW FOR EACH STORY</critical>
-<action>For each story in {{approved_stories}}:</action>
-<action>Invoke create-story workflow with mode="create" and story_key</action>
-<note>The create-story workflow will create comprehensive story files with full context analysis</note>
-<note>This ensures all stories have the same high-quality context regardless of how they're initiated</note>
-
-<output>
-📝 Creating story files via create-story workflow...
-</output>
 
 <output>
 ═══════════════════════════════════════════════════════════════
@@ -491,7 +482,6 @@ Options:
 
 **Files Created:**
 - {sprints_dir}/sprint-{{sprint_number}}.yaml
-- {{for each story}} {implementation_artifacts}/{{story_key}}.md
 
 **Files Updated:**
 - {planning_artifacts}/epics.md (stories appended)
@@ -499,9 +489,10 @@ Options:
 ──────────────────────────────────────────────────────────────
 **Next Steps:**
 
-1. Run `/bmad-bmm-sprint-status` to view sprint progress
-2. Run `/bmad-bmm-dev-story` to start development on a story
-3. When sprint complete, run `/bmad-bmm-sprint-review`
+1. Run `/bmad-bmm-create-story` to prepare a story for development (just-in-time)
+2. Run `/bmad-bmm-dev-story` to start development on the prepared story
+3. Run `/bmad-bmm-sprint-status` to view sprint progress
+4. When sprint complete, run `/bmad-bmm-sprint-review`
 </output>
 
 </step>

@@ -16,8 +16,8 @@
 #   - done: All stories in epic completed
 #
 # Story Status:
-#   - backlog: Story only exists in epic file
-#   - ready-for-dev: Story file created, ready for development
+#   - backlog: Story planned in sprint but not yet prepared (run create-story to move to ready-for-dev)
+#   - ready-for-dev: Story file created with full context, ready for development
 #   - in-progress: Developer actively working on implementation
 #   - review: Implementation complete, ready for review
 #   - done: Story completed
@@ -29,6 +29,7 @@
 # WORKFLOW NOTES:
 # ===============
 # - Mark epic as 'in-progress' when starting work on its first story
+# - Stories start as 'backlog' after sprint planning; run create-story (just-in-time) to move to 'ready-for-dev'
 # - SM typically creates next story ONLY after previous one is 'done' to incorporate learnings
 # - Dev moves story to 'review', then Dev runs code-review (fresh context, ideally different LLM)
 

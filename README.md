@@ -59,7 +59,7 @@ bmad-check-implementation-readiness   validate alignment across all docs
 ### Phase 4 - Sprint Cycle
 
 ```
-bmad-sprint-planning          select stories from epics, create sprint plan
+bmad-sprint-planning          select stories from epics, create sprint plan (stories start as backlog)
   |
   v
 +--------------------------------------------------+
@@ -94,7 +94,7 @@ bmad-sprint-planning           plan next sprint (loop back)
 | Skill | Code | When to use |
 |-------|------|-------------|
 | `bmad-correct-course` | CC | Major change needed mid-sprint |
-| `bmad-refresh-story` | RS | Story went stale, needs fresh context |
+| `bmad-refresh-story` | RS | *(legacy)* Story went stale, needs fresh context |
 | `bmad-sprint-status` | SS | Check where things stand |
 | `bmad-backlog-refinement` | BR | Upgrade story detail level before planning |
 | `bmad-jira-link` | JL | Link stories to JIRA |
