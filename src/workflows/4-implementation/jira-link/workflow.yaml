@@ -2,6 +2,12 @@ name: jira-link
 description: "Manually link BMAD stories and epics to Jira issues for tracking integration (no sync, just reference)"
 author: "BMad"
 
+# Self-describing metadata for workflow discovery
+phase: implementation
+code: JL
+agent: sm
+sequence: 35
+
 # Critical variables from config
 config_source: "{project-root}/_bmad/bmm/config.yaml"
 user_name: "{config_source}:user_name"

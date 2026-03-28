@@ -1,6 +1,10 @@
 ---
 name: technical-research
 description: 'Conduct technical research on technologies and architecture. Use when the user says "create a technical research report on [topic]".'
+phase: analysis
+code: TR
+agent: analyst
+sequence: 40
 ---
 
 # Technical Research Workflow

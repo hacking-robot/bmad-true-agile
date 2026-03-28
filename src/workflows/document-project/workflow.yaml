@@ -4,6 +4,12 @@ version: "1.2.0"
 description: 'Document brownfield projects for AI context. Use when the user says "document this project" or "generate project docs"'
 author: "BMad"
 
+# Self-describing metadata for workflow discovery
+phase: anytime
+code: DP
+agent: dev
+sequence: 200
+
 # Critical variables
 config_source: "{project-root}/_bmad/bmm/config.yaml"
 project_knowledge: "{config_source}:project_knowledge"

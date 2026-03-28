@@ -2,6 +2,12 @@ name: sprint-review
 description: "Close the current sprint, calculate velocity, handle incomplete stories, and prepare for next sprint"
 author: "BMad"
 
+# Self-describing metadata for workflow discovery
+phase: implementation
+code: SRV
+agent: sm
+sequence: 55
+
 # Critical variables from config
 config_source: "{project-root}/_bmad/bmm/config.yaml"
 user_name: "{config_source}:user_name"

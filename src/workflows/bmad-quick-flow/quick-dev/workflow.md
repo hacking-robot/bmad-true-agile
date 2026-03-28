@@ -1,6 +1,10 @@
 ---
 name: quick-dev
 description: 'Implement a Quick Tech Spec for small changes or features. Use when the user provides a quick tech spec and says "implement this quick spec" or "proceed with implementation of [quick tech spec]"'
+phase: anytime
+code: QD
+agent: quick-flow-solo-dev
+sequence: 20
 ---
 
 # Quick Dev Workflow

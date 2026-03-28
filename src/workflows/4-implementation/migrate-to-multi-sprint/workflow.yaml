@@ -4,6 +4,12 @@ description: "Migrate an existing BMAD project from single-sprint to multi-sprin
 
 author: "BMad Method"
 
+# Self-describing metadata for workflow discovery
+phase: anytime
+code: MTMS
+agent: sm
+sequence: 100
+
 config_source: "{project-root}/_bmad/bmm/config.yaml"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"

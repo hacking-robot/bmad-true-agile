@@ -2,6 +2,12 @@ name: refresh-story
 description: "Update an existing story with fresh context from completed stories and actual codebase implementation. Delegates to create-story in refresh mode."
 author: "BMad"
 
+# Self-describing metadata for workflow discovery
+phase: implementation
+code: RS
+agent: sm
+sequence: 18
+
 config_source: "{project-root}/_bmad/bmm/config.yaml"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"

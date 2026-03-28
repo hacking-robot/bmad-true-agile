@@ -1,6 +1,10 @@
 ---
 name: quick-dev-new-preview
 description: 'Unified quick flow - clarify intent, plan, implement, review, present.'
+phase: anytime
+code: QQ
+agent: quick-flow-solo-dev
+sequence: 30
 main_config: '{project-root}/_bmad/bmm/config.yaml'
 
 # Related workflows
