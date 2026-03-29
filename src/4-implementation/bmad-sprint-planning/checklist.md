@@ -38,3 +38,5 @@ Epic Files Contains:                Sprint Status Contains:
 - [ ] Carryover stories from previous sprints preserved their original keys exactly
 - [ ] No story keys were renumbered to match the current sprint number
 - [ ] New story sequences correctly increment from the last existing story in their epic
+- [ ] Every story appended to epics.md has a `key:` line immediately after the ### Story header
+- [ ] The `key:` value in epics.md exactly matches the corresponding key in the sprint YAML file

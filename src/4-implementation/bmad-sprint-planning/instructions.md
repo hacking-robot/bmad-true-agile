@@ -466,7 +466,21 @@ Options:
 </action>
 
 <action>For each story in {{approved_stories}}:</action>
-<action>APPEND story to epic file in {planning_artifacts}/epics.md</action>
+<action>APPEND story to the correct epic section in {planning_artifacts}/epics.md using this EXACT format:
+
+### Story {{epic_number}}.{{story_sequence}}: {{story_title}}
+key: {{story_key}}
+- **Points:** {{story_points}}
+- **Status:** planned
+- **FRs addressed:** {{requirements_covered}}
+- **Sprint:** {{sprint_number}}
+- **Acceptance Criteria:**
+  - {{acceptance_criteria items}}
+
+CRITICAL: The `key:` line MUST appear immediately after the ### Story header line.
+The key value MUST exactly match the key used in the sprint YAML file (e.g., "2-1-user-login").
+This ensures the sprint board can match stories between the sprint file and epics file.
+</action>
 <action>Update Story Summary table in epic section</action>
 <action>Update epic status (not-started → in-progress if first story)</action>
 
