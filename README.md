@@ -119,6 +119,10 @@ bmad-quick-dev          intent in, code out
 
 MIT
 
+## Compatibility
+
+This module is compatible with [BMad Studio](https://github.com/hacking-robot/bmad-studio).
+
 ## Credits
 
 Based on [BMad Method](https://github.com/bmad-code-org/BMAD-METHOD) by Brian (BMad) Madison
