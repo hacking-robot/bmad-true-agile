@@ -21,13 +21,13 @@ This document defines the epic structure for {{project_name}}, organizing requir
 
 {{nfr_list}}
 
+### Architecture Requirements
+
+{{arch_list}}
+
 ### Additional Requirements
 
 {{additional_requirements}}
-
-### FR Coverage Map
-
-{{requirements_coverage_map}}
 
 ## Epic List
 

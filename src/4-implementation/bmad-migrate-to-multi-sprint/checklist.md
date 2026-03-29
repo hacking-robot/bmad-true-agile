@@ -16,6 +16,10 @@ Use this checklist to verify the migration to true agile is complete and correct
 ## Epic File Updates
 
 - [ ] Epic status field added: `not-started` | `in-progress` | `done`
+- [ ] **Requirements Inventory section created** at top of file:
+  - [ ] Functional Requirements (FRs) extracted and listed
+  - [ ] NonFunctional Requirements (NFRs) extracted and listed
+  - [ ] Architecture Requirements (ARCH) extracted and listed
 - [ ] FRs Covered section added to each epic
 - [ ] Story Summary table added to each epic section
 - [ ] All DONE stories have `points: N` field
@@ -23,6 +27,7 @@ Use this checklist to verify the migration to true agile is complete and correct
 - [ ] All stories in table have `status: done` (undone stories removed)
 - [ ] detail_level field REMOVED (no longer used)
 - [ ] Epic status matches story completion (all done → done, some done → in-progress)
+- [ ] Done stories retain their `**FRs addressed:**`, `**NFRs addressed:**`, `**Architecture requirements:**` sections (coverage tracked in story content)
 
 ---
 
@@ -78,12 +83,15 @@ After migration, the workflow is:
 1. **sprint-planning CREATES stories** based on capacity (not selects from backlog)
 2. **Done stories in epics.md** are preserved as historical record
 3. **Undone stories are removed** from epics.md (files archived for reference)
-4. **Sprint-planning analyzes fresh** from FRs, NFRs, Architecture, and epic scope
-5. **backlog-refinement workflow** is DEPRECATED (no longer exists)
+4. **Requirements Inventory** at top of epics.md lists all FRs, NFRs, ARCH requirements
+5. **Coverage is tracked in story content** - each story has `**FRs addressed:**`, `**NFRs addressed:**`, `**Architecture requirements:**` sections
+6. **Sprint-planning extracts coverage** from done story content to determine remaining requirements
+7. **backlog-refinement workflow** is DEPRECATED (no longer exists)
 
 When you run sprint-planning:
-- Agent loads PRD, Architecture, NFRs, and epic scope
-- Agent identifies remaining FRs not covered by done stories
+- Agent loads Requirements Inventory (FRs, NFRs, ARCH requirements)
+- Agent scans done stories to extract covered requirements from story content
+- Agent identifies remaining requirements = all - covered
 - Agent creates stories sized to fit your capacity target
 
 ---

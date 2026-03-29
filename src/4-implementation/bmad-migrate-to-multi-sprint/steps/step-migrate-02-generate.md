@@ -61,6 +61,15 @@ New stories will be created during sprint-planning based on capacity.
 ```
 </action>
 
+<action>Call sub-step: step-migrate-02a-extract-requirements.md to extract and build Requirements Inventory:
+  - Scan old epics.md for all FRs, NFRs, ARCH requirements
+  - Scan done stories for "FRs addressed:", "NFRs addressed:", "Architecture requirements:" sections
+  - Build consolidated Requirements Inventory section
+  - Build Requirements Coverage Map showing which done stories cover which requirements
+</action>
+
+<action>Append Requirements Inventory to {outputFile}</action>
+
 <action>Set {{current_epic_index}} = 0</action>
 
 <action>Proceed to Step 2 (Epic Loop)</action>

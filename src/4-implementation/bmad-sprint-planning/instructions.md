@@ -123,7 +123,7 @@ You must close the current sprint before creating a new one.
 <step n="3" goal="Select Epics for Sprint">
 
 <action>Display all epics from {planning_artifacts}</action>
-<action>For each epic, show: status, remaining FRs, relevant NFRs</action>
+<action>For each epic, show: status, remaining FRs, relevant NFRs, remaining ARCH requirements</action>
 
 <output>
 📦 **Available Epics:**
@@ -131,7 +131,7 @@ You must close the current sprint before creating a new one.
 | Epic | Title | Status | Remaining Work |
 |------|-------|--------|----------------|
 {{for each epic}}
-| {{epic_number}} | {{epic_title}} | {{epic_status}} | {{remaining_frs}} (FRs), {{relevant_nfrs}} (NFRs) |
+| {{epic_number}} | {{epic_title}} | {{epic_status}} | {{remaining_frs}} FRs, {{relevant_nfrs}} NFRs, {{remaining_arch}} ARCH |
 {{end}}
 </output>
 
@@ -233,32 +233,32 @@ The codebase differs from the PRD document:
   </check>
 </check>
 
-<action>Scan completed stories from previous sprints for potentially incomplete FRs:
+<action>Scan completed stories from previous sprints for potentially incomplete requirements:
   - Review stories marked as "done"
-  - Check if all FRs covered by those stories are actually implemented
+  - Check if all FRs, NFRs, ARCH requirements covered by those stories are actually implemented
 </action>
 
-<check if="incomplete FRs found">
+<check if="incomplete requirements found">
   <output>
 ──────────────────────────────────────────────────────────────
-📋 **POTENTIALLY INCOMPLETE FRs DETECTED**
+📋 **POTENTIALLY INCOMPLETE REQUIREMENTS DETECTED**
 
-These FRs were in stories marked "done" but may not be fully implemented:
+These requirements were in stories marked "done" but may not be fully implemented:
 
-| FR | Description | From Story |
-|----|-------------|------------|
-{{for each incomplete FR}}
-| {{fr_id}} | {{fr_description}} | {{story_key}} |
+| Requirement | Type | Description | From Story |
+|-------------|------|-------------|------------|
+{{for each incomplete requirement}}
+| {{req_id}} | {{req_type}} | {{req_description}} | {{story_key}} |
 {{end}}
 
 You may want to include these in the new sprint to ensure completion.
 ──────────────────────────────────────────────────────────────
   </output>
-  
-  <ask>Include these incomplete FRs in sprint planning? (Y/n)</ask>
-  
+
+  <ask>Include these incomplete requirements in sprint planning? (Y/n)</ask>
+
   <check if="user says yes">
-    <action>Add incomplete FRs to {{remaining_frs}} for story creation</action>
+    <action>Add incomplete requirements to {{remaining_requirements}} for story creation</action>
   </check>
 </check>
 
@@ -277,12 +277,17 @@ No significant drift detected between planning documents and codebase.
 <step n="5" goal="Create Stories for Each Epic">
 
 <action>For each epic in {{selected_epics}}:</action>
-<action>Load epic file — use the Requirements Inventory (FRs, NFRs, additional requirements, FR coverage map), epic scope, description, and dependencies</action>
+<action>Load epic file — use the Requirements Inventory (FRs, NFRs, ARCH requirements), epic scope, description, and dependencies</action>
 <action>Load PRD and Architecture for additional context</action>
 <action>Load UX Design document if it exists (for interaction patterns and UI requirements)</action>
-<action>Identify FRs not yet covered by done stories (using FR coverage map and story status)</action>
+<action>Scan done stories in this epic's section for their covered requirements:
+  - Extract `**FRs addressed:**` from each done story
+  - Extract `**NFRs addressed:**` from each done story
+  - Extract `**Architecture requirements:**` from each done story
+</action>
+<action>Calculate remaining requirements = all requirements in Inventory - covered by done stories</action>
 <action>Identify NFRs relevant to this epic's domain (from NFR list)</action>
-<action>Analyze Architecture for technical requirements and prerequisites</action>
+<action>Identify ARCH requirements not yet covered (from Architecture Requirements list)</action>
 <action>Review additional requirements from Architecture/UX that apply to this epic</action>
 
 <output>
@@ -293,17 +298,18 @@ No significant drift detected between planning documents and codebase.
 **Goal:** {{epic_goal}}
 **FRs to cover:** {{remaining_frs}}
 **Relevant NFRs:** {{relevant_nfrs}}
-**Architecture considerations:** {{architecture_needs}}
+**ARCH requirements:** {{remaining_arch}}
 **Additional requirements:** {{additional_reqs}}
 **Epic scope:** {{epic_scope}}
 **Epic dependencies:** {{epic_dependencies}}
 </output>
 
-<action>Analyze FRs, NFRs, Architecture, UX, and epic scope</action>
+<action>Analyze FRs, NFRs, ARCH requirements, UX, and epic scope</action>
 <action>Propose stories that:
-  - Cover remaining requirements (FRs, NFRs, architecture needs, UX requirements)
+  - Cover remaining requirements (FRs, NFRs, ARCH requirements, UX requirements)
   - Address technical prerequisites from Architecture
   - Cover NFRs applicable to this epic's domain
+  - Cover ARCH requirements applicable to this epic's scope
   - Incorporate UX interaction patterns and UI requirements (if UX doc exists)
   - Respect epic scope boundaries (in-scope vs out-of-scope)
   - Account for epic dependencies

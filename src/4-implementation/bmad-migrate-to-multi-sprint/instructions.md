@@ -52,9 +52,11 @@ step-migrate-03-archive.md
 |------|--------|--------|
 | **Done stories in epics.md** | Keep with full content | Historical record, proves epic progress |
 | **Done story files** | Keep as-is | Contains completed work, decisions, useful history |
-| **Undone stories in epics.md** | Remove | Sprint-planning re-analyzes from FRs, NFRs, Architecture, and epic scope |
+| **Undone stories in epics.md** | Remove | Sprint-planning re-analyzes from Requirements Inventory |
 | **Undone story files** | Archive to `archive/` | Preserve detailed planning, avoid conflicts with new creations |
 | **sprint-status.yaml** | Archive | Replaced by sprint-N.yaml files |
+| **FRs/NFRs/ARCH from old epics** | Extract to Requirements Inventory | Consolidated tracking at file level |
+| **Story requirement sections** | Preserve in done stories | `**FRs addressed:**`, `**NFRs addressed:**`, `**Architecture requirements:**` sections kept for coverage tracking |
 
 ### What We Don't Need
 
@@ -78,6 +80,7 @@ step-migrate-03-archive.md
 │  - Technical Notes
 │  - FRs addressed
 │  - NFRs addressed
+│  - Architecture requirements (ARCH)
 │  - Dependencies
 │  - Architecture Notes
 │  - Infrastructure Context
