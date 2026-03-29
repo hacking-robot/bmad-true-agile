@@ -46,6 +46,7 @@ input_file_patterns:
 installed_path: "{project-root}/_bmad/bmm/workflows/4-implementation/migrate-to-multi-sprint"
 instructions: "{installed_path}/instructions.md"
 checklist: "{installed_path}/checklist.md"
+steps_dir: "{installed_path}/steps"
 
 # Output directories
 sprints_dir: "{implementation_artifacts}/sprints"
@@ -55,3 +56,13 @@ templates:
   sprint: "{installed_path}/templates/sprint-migration-template.yaml"
   velocity_log: "{installed_path}/templates/velocity-log-template.yaml"
   epic_update: "{installed_path}/templates/epic-story-fields.md"
+
+# Steps (sequential execution)
+steps:
+  analyze: "{steps_dir}/step-migrate-01-analyze.md"
+  generate: "{steps_dir}/step-migrate-02-generate.md"
+  migrate_epic: "{steps_dir}/step-migrate-02b-migrate-epic.md"
+  archive: "{steps_dir}/step-migrate-03-archive.md"
+  sprint_history: "{steps_dir}/step-migrate-04-sprint-history.md"
+  velocity_log: "{steps_dir}/step-migrate-05-velocity-log.md"
+  finalize: "{steps_dir}/step-migrate-06-finalize.md"

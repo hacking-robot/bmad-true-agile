@@ -1,6 +1,31 @@
 # Migrate to True Agile (Just-In-Time Story Creation)
 
+<critical>The workflow execution engine is governed by: {project-root}/_bmad/core/tasks/workflow.xml</critical>
+<critical>Communicate all responses in {communication_language}</critical>
+
 PURPOSE: Migrate an existing BMAD project from the old "all stories upfront" approach to true just-in-time agile where stories are created during sprint-planning based on capacity.
+
+---
+
+## Overview
+
+This workflow uses a **step-based approach** with sub-steps to handle large epics.md files reliably:
+
+```
+step-migrate-01-analyze.md
+       ↓
+step-migrate-02-generate.md
+       ↓ (loops for each epic)
+   step-migrate-02b-migrate-epic.md
+       ↓
+step-migrate-03-archive.md
+```
+
+**Why this approach?**
+- Large epics.md files are hard to parse and transform in one shot
+- Sub-steps allow processing one epic at a time
+- Story content is **extracted, not generated** - zero data loss
+- Clear boundaries prevent truncation
 
 ---
 
@@ -25,7 +50,7 @@ PURPOSE: Migrate an existing BMAD project from the old "all stories upfront" app
 
 | Item | Action | Reason |
 |------|--------|--------|
-| **Done stories in epics.md** | Keep as-is | Historical record, proves epic progress |
+| **Done stories in epics.md** | Keep with full content | Historical record, proves epic progress |
 | **Done story files** | Keep as-is | Contains completed work, decisions, useful history |
 | **Undone stories in epics.md** | Remove | Sprint-planning re-analyzes from FRs, NFRs, Architecture, and epic scope |
 | **Undone story files** | Archive to `archive/` | Preserve detailed planning, avoid conflicts with new creations |
@@ -41,233 +66,113 @@ PURPOSE: Migrate an existing BMAD project from the old "all stories upfront" app
 
 ---
 
-## Migration Steps
+## How Story Extraction Works
 
-### Step 1: Analyze Current State
-
-```
-🔍 Analyzing project structure...
-```
-
-1. Load epics.md (or sharded epic files)
-2. Load sprint-status.yaml (if exists)
-3. Load existing story files
-4. Identify:
-   - How many epics?
-   - How many stories per epic?
-   - Story status breakdown (done vs not done)
-   - Any change proposals?
-
-Display summary:
+### Story Boundary Detection
 
 ```
-📊 Current Project State
-
-Epics: 3
-├── Epic 1: User Auth (5 stories: 4 done, 1 not done)
-├── Epic 2: Content Management (6 stories: 2 done, 4 not done)
-└── Epic 3: Search (3 stories: 0 done, 3 not done)
-
-Total Stories: 14
-├── Done: 6
-└── Not Done: 8
-
-Story Files: 14 files in implementation-artifacts/
-Change Proposals: 2 files
+### Story X.Y: Title                    ← START of story
+│
+│  [EVERYTHING - preserved exactly]
+│  - Acceptance Criteria (Given/When/Then)
+│  - Technical Notes
+│  - FRs addressed
+│  - NFRs addressed
+│  - Dependencies
+│  - Architecture Notes
+│  - Infrastructure Context
+│  - Testing Acceptance Criteria
+│  - Any other sections...
+│
+▼
+### Story X.Z: ...  ← END of story (next story starts)
 ```
 
-### Step 2: Estimate Points for Done Stories
+### Done Status Determination
 
-For DONE stories only, estimate story points based on complexity:
+Priority order:
+1. Story file exists + `Status: done` in file → **DONE**
+2. Story file exists + other status → **NOT DONE** (note)
+3. No story file exists → **NOT DONE**
+4. Story title contains "ELIMINATED" → **SKIP** (don't migrate)
+5. Story has `**BLOCKED**` marker → **NOT DONE** (note)
 
-```
-📝 Estimating Points for Done Stories
+### New Story Format
 
-Epic 1: User Auth
-├── Story 1.1: Login - 5 pts (API + UI + session management)
-├── Story 1.2: Register - 5 pts (API + UI + validation)
-├── Story 1.3: Profile - 3 pts (API + UI)
-└── Story 1.4: Password Reset - 5 pts (API + email + UI)
+```markdown
+### Story 1.8: Mastra Public Endpoint Setup
+key: 1-8-mastra-public-endpoint-setup
+points: 8
+status: done
+jira_key: null
 
-Epic 2: Content Management
-├── Story 2.1: Create Content - 5 pts
-└── Story 2.2: List Content - 3 pts
+[ORIGINAL CONTENT PRESERVED EXACTLY AS-IS]
 
-Total done points: 26
-```
+**Acceptance Criteria:**
+...
 
-Ask user: "Do these point estimates look reasonable? (Y/n/adjust)"
+**Technical Notes:**
+...
 
-### Step 3: Update Epic Files
-
-Update epics.md to new format:
-
-**Changes:**
-1. Add epic status field: `not-started` | `in-progress` | `done`
-2. Add FR Coverage section (which requirements this epic covers)
-3. Add Story Summary table with status column
-4. Add points field to each story
-5. Remove detail_level field (no longer used)
-
-**Epic Status Rules:**
-- All stories done → epic status: `done`
-- Some stories done → epic status: `in-progress`
-- No stories done → epic status: `not-started` (undone stories are removed)
-
-```
-## Epic 1: User Authentication
-
-Status: in-progress
-Goal: Users can securely authenticate and manage their sessions
-
-### FRs Covered
-- FR-1: User login with email/password
-- FR-2: User registration with email verification
-- FR-3: Password reset flow
-- FR-4: Session management
-
-### Story Summary
-
-| Key | Title | Points | Status |
-|-----|-------|--------|--------|
-| 1-1-user-login | User Login | 5 | done |
-| 1-2-user-registration | User Registration | 5 | done |
-| 1-3-user-profile | User Profile | 3 | done |
-| 1-4-password-reset | Password Reset | 5 | done |
-
-**Total Points:** 18 (18 done, 0 remaining)
-```
-
-### Step 4: Archive Undone Story Files
-
-Move undone story files to archive to prevent conflicts:
-
-```
-📦 Archiving Undone Story Files
-
-Moving to implementation-artifacts/archive/:
-├── 1-5-logout.md (not done)
-├── 2-3-update-content.md (not done)
-├── 2-4-delete-content.md (not done)
-├── 2-5-content-versioning.md (not done)
-├── 2-6-content-search.md (not done)
-├── 3-1-search-api.md (not done)
-├── 3-2-search-ui.md (not done)
-└── 3-3-search-filters.md (not done)
-
-8 files archived. Original planning preserved for reference.
-```
-
-**Why archive?**
-- Sprint-planning will CREATE fresh story files with potentially different structure
-- Archived files are for historical reference only, not loaded by sprint-planning
-- Sprint-planning analyzes requirements (FRs, NFRs, Architecture) fresh to create stories
-
-### Step 5: Create Historical Sprint File (Optional)
-
-If user wants velocity tracking:
-
-```
-📜 Creating Historical Sprint Record
-
-Sprint 1 (completed):
-├── Stories: 1-1, 1-2, 1-3, 1-4, 2-1, 2-2 (6 stories)
-├── Points: 26
-├── Status: completed
-└── End Date: [ask user or use file dates]
-
-This provides baseline velocity for future planning.
-```
-
-Create `sprints/sprint-1.yaml` with completed stories.
-
-### Step 6: Create Velocity Log (Optional)
-
-If historical sprint created:
-
-```yaml
-# sprints/velocity-log.yaml
-sprints:
-  - sprint_number: 1
-    planned_points: 26
-    completed_points: 26
-    stories_completed: 6
-    stories_carried: 0
-    date_completed: [date]
-
-averages:
-  last_3_sprints: 26
-  all_time: 26
-  trend: "stable"
-```
-
-### Step 7: Archive Legacy Files
-
-```
-🗂️ Archiving Legacy Files
-
-Archiving:
-├── sprint-status.yaml → archive/sprint-status.yaml
-
-Preserving:
-├── Change proposals (not modified)
-├── epics.md (updated in place)
-├── Done story files (unchanged)
-```
-
-### Step 8: Finalize Migration
-
-Display migration summary:
-
-```
-✅ Migration Complete!
-
-📊 Summary:
-├── Epics migrated: 3
-├── Done stories preserved: 6 (26 points)
-├── Not-done stories removed: 8 (files archived)
-├── Story files archived: 8
-├── Historical sprint created: Sprint 1 (26 pts)
-└── Velocity log created: Yes
-
-📋 Next Steps:
-1. Review epic files to verify story status
-2. Run `/bmad-bmm-sprint-planning` to plan your next sprint
-3. Sprint-planning will analyze requirements fresh to create stories
-
-📁 Files Changed:
-├── epics.md (updated with new format)
-├── sprints/sprint-1.yaml (created)
-├── sprints/velocity-log.yaml (created)
-├── archive/ (8 story files moved)
-└── archive/sprint-status.yaml (archived)
+**FRs addressed:** ...
 ```
 
 ---
 
-## How Sprint-Planning Uses Migrated Projects
+## Workflow Execution
 
-When you run sprint-planning after migration:
+<workflow>
 
-1. **Agent loads epics.md** and finds done stories and remaining FR coverage gaps
-2. **Agent loads PRD, Architecture, and NFRs** for full context
-3. **Agent displays context:**
-   ```
-   📦 Epic 1: User Auth (status: in-progress)
+<step n="1" goal="Analyze Current State">
 
-   Remaining FRs to cover: FR-5 (Logout flow)
-   Relevant NFRs: NFR-2 (Session security)
-   Architecture considerations: Token-based auth layer
-   ```
-4. **You set capacity:** "I want 15 points this sprint"
-5. **You select epics:** "Work on Epic 1 and start Epic 2"
-6. **Agent proposes stories:**
-   - Analyzes FRs, NFRs, Architecture, and epic scope
-   - Creates stories sized to fit capacity
-7. **You approve/adjust** the proposed stories
-8. **Stories are created** and appended to epics.md
+<action>Load step: ./steps/step-migrate-01-analyze.md</action>
+<action>Follow all instructions in that step</action>
+<action>Receive: migration analysis with done/not-done status</action>
 
-Sprint-planning does a fresh analysis from all available inputs, not relying on previously planned stories.
+</step>
+
+<step n="2" goal="Generate New Epics File">
+
+<action>Load step: ./steps/step-migrate-02-generate.md</action>
+<action>Follow all instructions in that step</action>
+<action>That step will loop through epics using step-migrate-02b-migrate-epic.md</action>
+<action>Receive: new epics-migrated.md file</action>
+
+</step>
+
+<step n="3" goal="Archive Undone Files">
+
+<action>Load step: ./steps/step-migrate-03-archive.md</action>
+<action>Follow all instructions in that step</action>
+<action>Receive: archived undone story files</action>
+
+</step>
+
+<step n="4" goal="Create Historical Sprint (Optional)">
+
+<action>Load step: ./steps/step-migrate-04-sprint-history.md</action>
+<action>Follow all instructions in that step</action>
+<action>Optional: Create historical sprint from done stories</action>
+
+</step>
+
+<step n="5" goal="Create Velocity Log (Optional)">
+
+<action>Load step: ./steps/step-migrate-05-velocity-log.md</action>
+<action>Follow all instructions in that step</action>
+<action>Optional: Create velocity log for tracking</action>
+
+</step>
+
+<step n="6" goal="Finalize Migration">
+
+<action>Load step: ./steps/step-migrate-06-finalize.md</action>
+<action>Follow all instructions in that step</action>
+<action>Receive: final migration summary and next steps</action>
+
+</step>
+
+</workflow>
 
 ---
 
@@ -275,22 +180,11 @@ Sprint-planning does a fresh analysis from all available inputs, not relying on 
 
 | Issue | Solution |
 |-------|----------|
-| Story points seem wrong | Update directly in epics.md before sprint-planning |
-| Undone stories no longer relevant | Sprint-planning analyzes fresh from requirements, archive is just reference |
-| Missing FR coverage | Add FRs to epic section in epics.md |
-| Epic status incorrect | Update status field in epics.md |
-
----
-
-## Files Modified
-
-| File | Action |
-|------|--------|
-| `epics.md` | Updated in place (new format, status fields, points) |
-| `sprints/sprint-1.yaml` | Created (historical sprint) |
-| `sprints/velocity-log.yaml` | Created (velocity tracking) |
-| `implementation-artifacts/archive/` | Created with archived story files |
-| `sprint-status.yaml` | Archived |
+| Story content truncated | Re-run migration, check story boundaries |
+| Wrong done/not-done classification | Manually update in analysis step |
+| Missing FR coverage | Add to FRs Covered section in epic |
+| Points not in story file | Estimated during migration, verify with user |
+| Large file timeout | Sub-steps process one epic at a time |
 
 ---
 
@@ -298,7 +192,7 @@ Sprint-planning does a fresh analysis from all available inputs, not relying on 
 
 After migration:
 
-1. ✅ Run `/bmad-bmm-sprint-status` - should show epic progress
-2. ✅ Check epics.md - should have status fields and story tables
-3. ✅ Check archive/ - should contain undone story files
-4. ✅ Run `/bmad-bmm-sprint-planning` - should analyze requirements fresh to create stories
+1. ✅ Review epics.md - all done stories present with full content
+2. ✅ Check archive/ - contains undone story files
+3. ✅ Run `/bmad-bmm-sprint-status` - shows epic progress correctly
+4. ✅ Run `/bmad-bmm-sprint-planning` - analyzes requirements fresh to create stories
