@@ -1,0 +1,37 @@
+name: epic-forecast
+description: "Estimate remaining sprints for an epic based on velocity history and uncovered requirements. Provides data-backed forecasts for stakeholder communication."
+author: "BMad"
+
+# Self-describing metadata for workflow discovery
+phase: implementation
+code: EF
+agent: sm
+sequence: 13
+tooltip: "Forecasts epic completion based on velocity and remaining requirements coverage."
+
+# Critical variables from config
+config_source: "{project-root}/_bmad/bmm/config.yaml"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+document_output_language: "{config_source}:document_output_language"
+date: system-generated
+planning_artifacts: "{config_source}:planning_artifacts"
+implementation_artifacts: "{config_source}:implementation_artifacts"
+
+# Workflow components
+installed_path: "{project-root}/_bmad/bmm/workflows/4-implementation/epic-forecast"
+instructions: "{installed_path}/workflow.md"
+
+# Variables and inputs
+project_context: "**/project-context.md"
+sprint_status: "{implementation_artifacts}/sprint-status.yaml"
+sprints_dir: "{implementation_artifacts}/sprints"
+velocity_log: "{sprints_dir}/velocity-log.yaml"
+
+# Smart input file references
+input_file_patterns:
+  epics:
+    description: "All epics with requirements inventory and done stories"
+    whole: "{planning_artifacts}/*epic*.md"
+    sharded: "{planning_artifacts}/*epic*/*.md"
+    load_strategy: "FULL_LOAD"
