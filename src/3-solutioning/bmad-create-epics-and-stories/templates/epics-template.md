@@ -25,9 +25,11 @@ This document defines the epic structure for {{project_name}}, organizing requir
 
 {{arch_list}}
 
-### Additional Requirements
+### Additional Requirements (ARs)
 
-{{additional_requirements}}
+| ID | Requirement | Source | Epic |
+|----|-------------|--------|------|
+{{ar_list}}
 
 ## Epic List
 

@@ -6,7 +6,7 @@ outputFile: '{planning_artifacts}/implementation-readiness-report-{{date}}.md'
 
 ## STEP GOAL:
 
-To validate that all Functional Requirements from the PRD are captured in the epics and stories document, identifying any gaps in coverage.
+To validate that all Functional Requirements and Additional Requirements (ARs) from the PRD are captured in the epics and stories document, identifying any gaps in coverage.
 
 ## MANDATORY EXECUTION RULES (READ FIRST):
 
@@ -27,7 +27,7 @@ To validate that all Functional Requirements from the PRD are captured in the ep
 
 ### Step-Specific Rules:
 
-- 🎯 Focus ONLY on FR coverage validation
+- 🎯 Focus ONLY on FR and AR coverage validation
 - 🚫 Don't analyze story quality (that's later)
 - 💬 Compare PRD FRs against epic coverage list
 - 🚪 Document every missing FR
@@ -85,8 +85,9 @@ Total FRs in epics: [count]
 Using the PRD FR list from step 2:
 
 - Check each PRD FR against epic coverage
-- Identify FRs NOT covered in epics
-- Note any FRs in epics but NOT in PRD
+- Check each AR against epic coverage
+- Identify FRs and ARs NOT covered in epics
+- Note any FRs/ARs in epics but NOT in PRD
 
 Create coverage matrix:
 
@@ -98,6 +99,13 @@ Create coverage matrix:
 | FR1       | [PRD text]      | Epic X Story Y | ✓ Covered |
 | FR2       | [PRD text]      | **NOT FOUND**  | ❌ MISSING |
 | FR3       | [PRD text]      | Epic Z Story A | ✓ Covered |
+
+## AR Coverage Analysis
+
+| AR Number | Requirement     | Epic Coverage  | Status    |
+| --------- | --------------- | -------------- | --------- |
+| AR-001    | [Requirement]   | Epic X Story Y | ✓ Covered |
+| AR-002    | [Requirement]   | **NOT FOUND**  | ❌ MISSING |
 ```
 
 ### 5. Document Missing Coverage
@@ -137,7 +145,10 @@ Append to {outputFile}:
 
 - Total PRD FRs: [count]
 - FRs covered in epics: [count]
-- Coverage percentage: [percentage]
+- FR Coverage percentage: [percentage]
+- Total ARs: [count]
+- ARs covered in epics: [count]
+- AR Coverage percentage: [percentage]
 ```
 
 ### 7. Auto-Proceed to Next Step

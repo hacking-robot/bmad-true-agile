@@ -2,7 +2,7 @@
 
 ## STEP GOAL:
 
-Extract all FRs, NFRs, and Architecture requirements from the old epics.md and done stories to build the Requirements Inventory section.
+Extract all FRs, NFRs, Architecture requirements, and Additional Requirements (ARs) from the old epics.md and done stories to build the Requirements Inventory section.
 
 ## INPUTS (provided by parent step):
 
@@ -47,6 +47,18 @@ Look for patterns like:
 - Sections labeled "Architecture Requirements", "Technical Requirements"
 - Lines starting with `**Architecture requirement:**` or `**ARCH**:`
 
+### Additional Requirements (ARs)
+Look for patterns like:
+- `AR-001:`, `AR-1:`, `AR1:`, `AR 1:`
+- `**AR-001**`, `**AR1**`
+- Sections labeled "Additional Requirements", "Other Requirements"
+- Any requirement not classified as FR, NFR, or ARCH
+
+<critical>
+Any requirement found that does not fit FR, NFR, or ARCH MUST be assigned an AR- prefix ID.
+No other custom prefixes are allowed.
+</critical>
+
 <action>For each requirement found, capture:
   - ID (e.g., FR-001, NFR-002, ARCH-005)
   - Description/title
@@ -58,6 +70,7 @@ Look for patterns like:
 - FRs: {{fr_count}}
 - NFRs: {{nfr_count}}
 - ARCH: {{arch_count}}
+- ARs: {{ar_count}}
 </output>
 
 <action>Proceed to Step 2</action>
@@ -72,6 +85,7 @@ Look for patterns like:
 - `**FRs addressed:** FR-001, FR-002, ...`
 - `**NFRs addressed:** NFR-001, ...`
 - `**Architecture requirements:** ARCH-005, ...`
+- `**Additional requirements addressed:** AR-001, AR-002, ...`
 - `**Covers:** FR-001, NFR-002`
 - `**Requirements:** FR-001, FR-003`
 
@@ -83,7 +97,7 @@ Look for patterns like:
 <output>
 📋 **Coverage from Done Stories:**
 {{for each done story}}
-- {{story.key}}: FRs [{{frs}}], NFRs [{{nfrs}}], ARCH [{{archs}}]
+- {{story.key}}: FRs [{{frs}}], NFRs [{{nfrs}}], ARCH [{{archs}}], ARs [{{ars}}]
 {{end}}
 </output>
 
@@ -142,13 +156,17 @@ If PRD/Architecture files don't exist or don't contain the requirements, use the
 | {{arch_id}} | {{arch_description}} | {{arch_category}} | Epic {{epic_num}} |
 {{end}}
 
-### Additional Requirements
+### Additional Requirements (ARs)
 
-{{additional_requirements_or_note_if_none}}
+| ID | Requirement | Source | Epic |
+|----|-------------|--------|------|
+{{for each AR}}
+| {{ar_id}} | {{ar_description}} | {{ar_source}} | Epic {{epic_num}} |
+{{end}}
 ```
 
 <note>
-Coverage is tracked within each story's content. During sprint-planning, scan done stories in epic sections and extract their `**FRs addressed:**`, `**NFRs addressed:**`, and `**Architecture requirements:**` sections to determine what's already covered.
+Coverage is tracked within each story's content. During sprint-planning, scan done stories in epic sections and extract their `**FRs addressed:**`, `**NFRs addressed:**`, `**Architecture requirements:**`, and `**Additional requirements addressed:**` sections to determine what's already covered.
 </note>
 
 <action>Proceed to Step 5</action>
@@ -167,6 +185,7 @@ Coverage is tracked within each story's content. During sprint-planning, scan do
 - FRs: {{fr_count}}
 - NFRs: {{nfr_count}}
 - ARCH: {{arch_count}}
+- ARs: {{ar_count}}
 </output>
 
 <action>Return results to parent step</action>
@@ -208,11 +227,21 @@ ARCH1: Description
 - ARCH-001: Description
 ```
 
+### AR Patterns:
+```
+AR-001: Description
+AR1: Description
+**AR-001** - Description
+| AR-001 | Description | ... |
+- AR-001: Description
+```
+
 ### Story Coverage Patterns:
 ```
 **FRs addressed:** FR-001, FR-002, FR-003
 **NFRs addressed:** NFR-001
 **Architecture requirements:** ARCH-005
+**Additional requirements addressed:** AR-001, AR-002
 **Covers:** FR-001, NFR-002
 ```
 
@@ -235,7 +264,7 @@ ARCH1: Description
 
 ### ✅ SUCCESS:
 
-- All FRs/NFRs/ARCHs from old epics.md captured
+- All FRs/NFRs/ARCHs/ARs from old epics.md captured
 - Coverage map accurately reflects done stories
 - Remaining requirements clearly identified
 - Descriptions preserved or sourced from PRD/Architecture

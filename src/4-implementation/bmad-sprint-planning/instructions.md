@@ -123,7 +123,7 @@ You must close the current sprint before creating a new one.
 <step n="3" goal="Select Epics for Sprint">
 
 <action>Display all epics from {planning_artifacts}</action>
-<action>For each epic, show: status, remaining FRs, relevant NFRs, remaining ARCH requirements</action>
+<action>For each epic, show: status, remaining FRs, relevant NFRs, remaining ARCH requirements, remaining ARs</action>
 
 <output>
 📦 **Available Epics:**
@@ -131,7 +131,7 @@ You must close the current sprint before creating a new one.
 | Epic | Title | Status | Remaining Work |
 |------|-------|--------|----------------|
 {{for each epic}}
-| {{epic_number}} | {{epic_title}} | {{epic_status}} | {{remaining_frs}} FRs, {{relevant_nfrs}} NFRs, {{remaining_arch}} ARCH |
+| {{epic_number}} | {{epic_title}} | {{epic_status}} | {{remaining_frs}} FRs, {{relevant_nfrs}} NFRs, {{remaining_arch}} ARCH, {{remaining_ar}} ARs |
 {{end}}
 </output>
 
@@ -277,18 +277,19 @@ No significant drift detected between planning documents and codebase.
 <step n="5" goal="Create Stories for Each Epic">
 
 <action>For each epic in {{selected_epics}}:</action>
-<action>Load epic file — use the Requirements Inventory (FRs, NFRs, ARCH requirements), epic scope, description, and dependencies</action>
+<action>Load epic file — use the Requirements Inventory (FRs, NFRs, ARCH requirements, ARs), epic scope, description, and dependencies</action>
 <action>Load PRD and Architecture for additional context</action>
 <action>Load UX Design document if it exists (for interaction patterns and UI requirements)</action>
 <action>Scan done stories in this epic's section for their covered requirements:
   - Extract `**FRs addressed:**` from each done story
   - Extract `**NFRs addressed:**` from each done story
   - Extract `**Architecture requirements:**` from each done story
+  - Extract `**Additional requirements addressed:**` from each done story
 </action>
 <action>Calculate remaining requirements = all requirements in Inventory - covered by done stories</action>
 <action>Identify NFRs relevant to this epic's domain (from NFR list)</action>
 <action>Identify ARCH requirements not yet covered (from Architecture Requirements list)</action>
-<action>Review additional requirements from Architecture/UX that apply to this epic</action>
+<action>Identify AR requirements not yet covered (from Additional Requirements list)</action>
 
 <output>
 ──────────────────────────────────────────────────────────────
@@ -299,17 +300,18 @@ No significant drift detected between planning documents and codebase.
 **FRs to cover:** {{remaining_frs}}
 **Relevant NFRs:** {{relevant_nfrs}}
 **ARCH requirements:** {{remaining_arch}}
-**Additional requirements:** {{additional_reqs}}
+**AR requirements:** {{remaining_ar}}
 **Epic scope:** {{epic_scope}}
 **Epic dependencies:** {{epic_dependencies}}
 </output>
 
 <action>Analyze FRs, NFRs, ARCH requirements, UX, and epic scope</action>
 <action>Propose stories that:
-  - Cover remaining requirements (FRs, NFRs, ARCH requirements, UX requirements)
+  - Cover remaining requirements (FRs, NFRs, ARCH requirements, AR requirements, UX requirements)
   - Address technical prerequisites from Architecture
   - Cover NFRs applicable to this epic's domain
   - Cover ARCH requirements applicable to this epic's scope
+  - Cover AR requirements applicable to this epic's scope
   - Incorporate UX interaction patterns and UI requirements (if UX doc exists)
   - Respect epic scope boundaries (in-scope vs out-of-scope)
   - Account for epic dependencies
@@ -473,6 +475,7 @@ key: {{story_key}}
 - **Points:** {{story_points}}
 - **Status:** planned
 - **FRs addressed:** {{requirements_covered}}
+- **Additional requirements addressed:** {{ar_requirements_covered}}
 - **Sprint:** {{sprint_number}}
 - **Acceptance Criteria:**
   - {{acceptance_criteria items}}

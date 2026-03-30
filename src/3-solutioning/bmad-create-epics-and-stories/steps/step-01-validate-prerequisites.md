@@ -24,7 +24,7 @@ epicsTemplate: '{workflow_path}/templates/epics-template.md'
 
 ## STEP GOAL:
 
-To validate that all required input documents exist and extract all requirements (FRs, NFRs, and additional requirements from UX/Architecture) needed for epic and story creation.
+To validate that all required input documents exist and extract all requirements (FRs, NFRs, ARCH, and Additional Requirements (ARs) from UX/Architecture) needed for epic and story creation.
 
 ## MANDATORY EXECUTION RULES (READ FIRST):
 
@@ -129,7 +129,14 @@ NFR2: [Performance/Security/Usability requirement]
 ...
 ```
 
-### 5. Extract Additional Requirements from Architecture
+### 5. Extract Additional Requirements (ARs) from Architecture
+
+<critical>
+ADDITIONAL REQUIREMENT ID RULE:
+Any requirement that does NOT fit into FR, NFR, or ARCH categories MUST be assigned an AR- prefix ID (e.g., AR-001, AR-002).
+NO other custom prefixes are allowed. The only valid requirement prefixes in this system are: FR-, NFR-, ARCH-, and AR-.
+If the AI encounters requirements with any other prefix, they MUST be reclassified under one of these four categories.
+</critical>
 
 Review the Architecture document for technical requirements that impact epic and story creation:
 
@@ -145,16 +152,16 @@ Review the Architecture document for technical requirements that impact epic and
 
 **IMPORTANT**: If a starter template is mentioned in Architecture, note it prominently. This will impact Epic 1 Story 1.
 
-**Format Additional Requirements as:**
+**Format Additional Requirements with AR- IDs:**
 
 ```
-- [Technical requirement from Architecture that affects implementation]
-- [Infrastructure setup requirement]
-- [Integration requirement]
+AR-001: [Technical requirement from Architecture that affects implementation]
+AR-002: [Infrastructure setup requirement]
+AR-003: [Integration requirement]
 ...
 ```
 
-### 6. Extract Additional Requirements from UX (if exists)
+### 6. Extract Additional Requirements (ARs) from UX (if exists)
 
 Review the UX document for requirements that affect epic and story creation:
 
@@ -167,7 +174,7 @@ Review the UX document for requirements that affect epic and story creation:
 - Animation or transition requirements
 - Error handling UX requirements
 
-**Add these to Additional Requirements list.**
+**Assign AR- IDs to these requirements, continuing the sequence from section 5.**
 
 ### 7. Load and Initialize Template
 
@@ -178,7 +185,7 @@ Load {epicsTemplate} and initialize {outputFile}:
 3. Replace placeholder sections with extracted requirements:
    - {{fr_list}} → extracted FRs
    - {{nfr_list}} → extracted NFRs
-   - {{additional_requirements}} → extracted additional requirements
+   - {{ar_list}} → extracted ARs (with AR- IDs)
 4. Leave {{requirements_coverage_map}} and {{epics_list}} as placeholders for now
 
 ### 8. Present Extracted Requirements
@@ -197,8 +204,9 @@ Display to user:
 - Display key NFRs
 - Ask if any constraints were missed
 
-**Additional Requirements:**
+**Additional Requirements (ARs):**
 
+- Show count of ARs found with their IDs
 - Summarize technical requirements from Architecture
 - Summarize UX requirements (if applicable)
 - Verify completeness
@@ -215,7 +223,7 @@ After extraction and confirmation, update {outputFile} with:
 
 - Complete FR list in {{fr_list}} section
 - Complete NFR list in {{nfr_list}} section
-- All additional requirements in {{additional_requirements}} section
+- All additional requirements with AR- IDs in {{ar_list}} section
 
 ### 10. Present MENU OPTIONS
 
@@ -245,7 +253,7 @@ ONLY WHEN C is selected and all requirements are saved to document and frontmatt
 - All required documents found and validated
 - All FRs extracted and formatted correctly
 - All NFRs extracted and formatted correctly
-- Additional requirements from Architecture/UX identified
+- Additional requirements from Architecture/UX identified and assigned AR- IDs
 - Template initialized with requirements
 - User confirms requirements are complete and accurate
 

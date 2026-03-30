@@ -66,7 +66,7 @@ Load {outputFile} and review:
 
 - **Functional Requirements:** Count and review FRs from Step 1
 - **Non-Functional Requirements:** Review NFRs that need to be addressed
-- **Additional Requirements:** Review technical and UX requirements
+- **Additional Requirements (ARs):** Review AR- requirements from Architecture and UX
 
 ### 2. Explain Epic Design Principles
 

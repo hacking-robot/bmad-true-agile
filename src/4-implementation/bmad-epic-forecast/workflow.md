@@ -90,12 +90,13 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
 <step n="2" goal="Analyze requirements coverage for target epic">
 
   <action>For the target epic, load the Requirements Inventory section</action>
-  <action>Extract all FRs, NFRs, and ARCH requirements listed in the inventory</action>
+  <action>Extract all FRs, NFRs, ARCH requirements, and ARs listed in the inventory</action>
 
   <action>Scan all done stories in this epic's section:</action>
   <action>  Extract `**FRs addressed:**` from each done story</action>
   <action>  Extract `**NFRs addressed:**` from each done story</action>
   <action>  Extract `**Architecture requirements:**` from each done story</action>
+  <action>  Extract `**Additional requirements addressed:**` from each done story</action>
 
   <action>Calculate:
     - {{total_frs}} = count of all FRs in inventory
@@ -107,7 +108,10 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
     - {{total_arch}} = count of ARCH requirements
     - {{covered_arch}} = count of ARCH addressed by done stories
     - {{remaining_arch}} = total - covered
-    - {{coverage_pct}} = (covered_frs + covered_nfrs + covered_arch) / (total_frs + total_nfrs + total_arch) * 100
+    - {{total_ar}} = count of AR requirements
+    - {{covered_ar}} = count of ARs addressed by done stories
+    - {{remaining_ar}} = total - covered
+    - {{coverage_pct}} = (covered_frs + covered_nfrs + covered_arch + covered_ar) / (total_frs + total_nfrs + total_arch + total_ar) * 100
   </action>
 
   <action>Also calculate points already completed for this epic from done stories</action>
@@ -123,6 +127,7 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
 | Functional (FRs) | {{total_frs}} | {{covered_frs}} | {{remaining_frs}} |
 | Non-Functional (NFRs) | {{total_nfrs}} | {{covered_nfrs}} | {{remaining_nfrs}} |
 | Architecture (ARCH) | {{total_arch}} | {{covered_arch}} | {{remaining_arch}} |
+| Additional (ARs) | {{total_ar}} | {{covered_ar}} | {{remaining_ar}} |
 | **Total** | **{{total_all}}** | **{{covered_all}}** | **{{remaining_all}}** |
 
 **Coverage:** {{coverage_pct}}%
@@ -133,7 +138,7 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
     <output>
 ✅ **Epic {{target_epic}} has full requirements coverage!**
 
-All FRs, NFRs, and ARCH requirements are addressed by done stories.
+All FRs, NFRs, ARCH requirements, and ARs are addressed by done stories.
 This epic can be marked as `done`.
     </output>
     <action>End workflow for this epic</action>
@@ -331,6 +336,11 @@ Choice:</ask>
 **ARCH:**
 {{for each remaining_arch_req}}
 - {{arch_id}}: {{arch_description}}
+{{end}}
+
+**ARs:**
+{{for each remaining_ar_req}}
+- {{ar_id}}: {{ar_description}}
 {{end}}
     </output>
   </check>

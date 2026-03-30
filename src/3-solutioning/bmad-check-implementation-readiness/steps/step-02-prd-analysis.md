@@ -106,7 +106,7 @@ NFR3: [Usability requirement]
 Total NFRs: [count]
 ```
 
-### 5. Document Additional Requirements
+### 5. Document Additional Requirements (ARs)
 
 Look for:
 
@@ -114,6 +114,15 @@ Look for:
 - Technical requirements not labeled as FR/NFR
 - Business constraints
 - Integration requirements
+
+**Assign AR- IDs to any requirement that does not fit FR, NFR, or ARCH categories:**
+
+```
+AR-001: [Technical requirement or constraint]
+AR-002: [Business constraint]
+AR-003: [Integration requirement]
+...
+```
 
 ### 6. Add to Assessment Report
 
@@ -130,9 +139,9 @@ Append to {outputFile}:
 
 [Complete NFR list from section 4]
 
-### Additional Requirements
+### Additional Requirements (ARs)
 
-[Any other requirements or constraints found]
+[AR- requirements list from section 5]
 
 ### PRD Completeness Assessment
 

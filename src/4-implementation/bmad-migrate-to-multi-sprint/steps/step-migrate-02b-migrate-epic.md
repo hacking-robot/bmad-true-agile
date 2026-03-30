@@ -178,6 +178,7 @@ jira_key: null
 │
 │  **FRs addressed:** ...          ← INCLUDE
 │  **NFRs addressed:** ...         ← INCLUDE (if present)
+│  **Additional requirements addressed:** ... ← INCLUDE (if present)
 │  **Dependencies:** ...           ← INCLUDE (if present)
 │  **Architecture Note:** ...      ← INCLUDE (if present)
 │  **Infrastructure Context:** ... ← INCLUDE (if present)
