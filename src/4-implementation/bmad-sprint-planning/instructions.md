@@ -474,8 +474,8 @@ Options:
 key: {{story_key}}
 - **Points:** {{story_points}}
 - **Status:** planned
-- **FRs addressed:** {{requirements_covered}}
-- **Additional requirements addressed:** {{ar_requirements_covered}}
+- **FRs addressed:** {{requirements_covered}} <!-- List each requirement individually: FR1, FR2, NFR3. NEVER use ranges like FR1-3. Same rule for NFR, ARCH, AR. -->
+- **Additional requirements addressed:** {{ar_requirements_covered}} <!-- List each individually: AR-001, AR-002. NEVER use ranges. -->
 - **Sprint:** {{sprint_number}}
 - **Acceptance Criteria:**
   - {{acceptance_criteria items}}

@@ -55,18 +55,19 @@ To design and get approval for the epics_list that will organize all requirement
 
 - 🎯 Design epics collaboratively based on extracted requirements
 - 💾 Update {{epics_list}} in {outputFile}
-- 📖 Document the FR coverage mapping
+- 📖 Document the requirements coverage mapping
 - 🚫 FORBIDDEN to load next step until user approves epics_list
 
 ## EPIC DESIGN PROCESS:
 
-### 1. Review Extracted Requirements
+### 1. Review Extracted Requirements and Preserved Epics
 
 Load {outputFile} and review:
 
 - **Functional Requirements:** Count and review FRs from Step 1
 - **Non-Functional Requirements:** Review NFRs that need to be addressed
 - **Additional Requirements (ARs):** Review AR- requirements from Architecture and UX
+- **Preserved Epics:** Check frontmatter for `preservedEpics` array. If present, these epics and their stories were kept from a previous iteration and MUST be included as-is in the final epic list. Their requirements coverage counts toward the coverage map.
 
 ### 2. Explain Epic Design Principles
 
@@ -105,7 +106,9 @@ Organize by USER VALUE, not technical layers:
 
 **Step A: Identify User Value Themes**
 
-- Look for natural groupings in the FRs
+- If preserved epics exist, list them first and note which requirements (FR, NFR, ARCH, AR) they already cover
+- Identify which requirements are NOT yet covered by preserved epics — these need new epics
+- Look for natural groupings in the uncovered requirements
 - Identify user journeys or workflows
 - Consider user types and their goals
 
@@ -114,50 +117,74 @@ For each proposed epic:
 
 1. **Epic Title**: User-centric, value-focused
 2. **User Outcome**: What users can accomplish after this epic
-3. **FR Coverage**: Which FR numbers this epic addresses
+3. **Requirements Coverage**: Which requirement IDs this epic addresses (FR, NFR, ARCH, AR)
+   - ⚠️ **ALWAYS list every requirement individually** (e.g., `FR1, FR2, FR3, FR4`). NEVER use range notation like `FR1-4` or `FR1-FR4`. This applies to ALL requirement types: FR, NFR, ARCH, AR. Downstream tools cannot parse ranges.
 4. **Implementation Notes**: Any technical or UX considerations
 
 **Step C: Create the epics_list**
 
-Format the epics_list as:
+Format the epics_list as (preserved epics retain their original numbering and content):
 
 ```
 ## Epic List
 
-### Epic 1: [Epic Title]
-[Epic goal statement - what users can accomplish]
-**FRs covered:** FR1, FR2, FR3, etc.
+### Epic 1: [Epic Title] *(preserved — X stories kept)*
+[Original epic goal statement — unchanged]
+**Requirements covered:** FR1, FR2, NFR1, ARCH1, AR-001, etc.
 
-### Epic 2: [Epic Title]
+### Epic 2: [Epic Title] *(new)*
 [Epic goal statement - what users can accomplish]
-**FRs covered:** FR4, FR5, FR6, etc.
+**Requirements covered:** FR4, FR5, NFR2, AR-002, etc.
 
-[Continue for all epics]
+[Continue for all epics — preserved first, then new]
 ```
+
+**⚠️ PRESERVED EPIC RULES:**
+- Do NOT modify preserved epic titles, goals, or story content
+- Preserved epics may be renumbered if needed for logical flow, but their content stays intact
+- If new FRs need to be added to a preserved epic, note this and ask the user whether to add them or create a new epic
 
 ### 4. Present Epic List for Review
 
 Display the complete epics_list to user with:
 
 - Total number of epics
-- FR coverage per epic
+- Requirements coverage per epic (FR, NFR, ARCH, AR)
 - User value delivered by each epic
 - Any natural dependencies
 
 ### 5. Create Requirements Coverage Map
 
-Create {{requirements_coverage_map}} showing how each FR maps to an epic:
+⚠️ **NEVER use range notation** (e.g., `FR1-14`, `NFR1-3`, `AR-001-005`). Always list each requirement individually: `FR1, FR2, FR3, ...`. This applies to ALL requirement types: FR, NFR, ARCH, AR.
+
+Create {{requirements_coverage_map}} showing how each requirement maps to an epic:
 
 ```
-### FR Coverage Map
+### Requirements Coverage Map
 
+**Functional Requirements:**
 FR1: Epic 1 - [Brief description]
 FR2: Epic 1 - [Brief description]
 FR3: Epic 2 - [Brief description]
 ...
+
+**Non-Functional Requirements:**
+NFR1: Epic 1 - [Brief description]
+NFR2: Epic 3 - [Brief description]
+...
+
+**Architecture Requirements:**
+ARCH1: Epic 1 - [Brief description]
+ARCH2: Epic 2 - [Brief description]
+...
+
+**Additional Requirements:**
+AR-001: Epic 1 - [Brief description]
+AR-002: Epic 2 - [Brief description]
+...
 ```
 
-This ensures no FRs are missed.
+This ensures no requirements are missed.
 
 ### 6. Collaborative Refinement
 
@@ -186,7 +213,8 @@ After approval, update {outputFile}:
 
 1. Replace {{epics_list}} placeholder with the approved epic list
 2. Replace {{requirements_coverage_map}} with the coverage map
-3. Ensure all FRs are mapped to epics
+3. Ensure all requirements (FR, NFR, ARCH, AR) are mapped to epics
+4. **Preserved epics:** Keep their full sections (including all story content) intact in the document. Only update their position/numbering if the epic order changed.
 
 ### 8. Present MENU OPTIONS
 
@@ -217,7 +245,7 @@ ONLY WHEN C is selected and the approved epics_list is saved to document, will y
 ### ✅ SUCCESS:
 
 - Epics designed around user value
-- All FRs mapped to specific epics
+- All requirements (FR, NFR, ARCH, AR) mapped to specific epics
 - epics_list created and formatted correctly
 - Requirements coverage map completed
 - User gives explicit approval for epic structure
@@ -226,7 +254,8 @@ ONLY WHEN C is selected and the approved epics_list is saved to document, will y
 ### ❌ SYSTEM FAILURE:
 
 - Epics organized by technical layers
-- Missing FRs in coverage map
+- Missing requirements (FR, NFR, ARCH, or AR) in coverage map
+- Using range notation for requirements (e.g., `FR1-14`, `NFR1-3`, `AR-001-005` instead of listing each individually)
 - No user approval obtained
 - epics_list not saved to document
 

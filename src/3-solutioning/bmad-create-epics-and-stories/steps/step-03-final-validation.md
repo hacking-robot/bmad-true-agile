@@ -46,7 +46,7 @@ To validate complete coverage of all requirements by epics and ensure epics are 
 
 - 🎯 Focus ONLY on validating epic coverage and structure
 - 🚫 FORBIDDEN to skip any validation checks
-- 💬 Validate FR coverage and epic dependencies
+- 💬 Validate coverage of all requirement types (FR, NFR, ARCH, AR) and epic dependencies
 - 🚫 FORBIDDEN to create stories - stories are created during sprint planning
 
 ## EXECUTION PROTOCOLS:
@@ -65,16 +65,33 @@ To validate complete coverage of all requirements by epics and ensure epics are 
 
 ## VALIDATION PROCESS:
 
-### 1. FR Coverage Validation
+### 1. Requirements Coverage Validation
 
-Review the epic breakdown to ensure EVERY FR is covered:
+Review the epic breakdown to ensure EVERY requirement is covered:
 
-**CRITICAL CHECK:**
+**CRITICAL CHECK — repeat for each requirement type:**
 
+**FRs:**
 - Go through each FR from the Requirements Inventory
-- Verify it appears in at least one epic's FR coverage list
+- Verify it appears in at least one epic's coverage list
 - No FRs should be left uncovered
-- Present a coverage matrix showing FR → Epic mapping
+
+**NFRs:**
+- Go through each NFR from the Requirements Inventory
+- Verify it is addressed by at least one epic
+- No NFRs should be left uncovered
+
+**ARCH requirements:**
+- Go through each ARCH requirement from the Requirements Inventory
+- Verify it is addressed by at least one epic
+- No ARCH requirements should be left uncovered
+
+**ARs (Additional Requirements):**
+- Go through each AR from the Requirements Inventory
+- Verify it is addressed by at least one epic
+- No ARs should be left uncovered
+
+Present a coverage matrix showing requirement → Epic mapping for ALL types.
 
 ### 2. Architecture Alignment Validation
 

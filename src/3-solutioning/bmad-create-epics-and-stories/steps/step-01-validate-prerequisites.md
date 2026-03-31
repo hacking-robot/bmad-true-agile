@@ -178,15 +178,36 @@ Review the UX document for requirements that affect epic and story creation:
 
 ### 7. Load and Initialize Template
 
-Load {epicsTemplate} and initialize {outputFile}:
+**CRITICAL: Check for existing epics.md BEFORE initializing.**
+
+**IF {outputFile} already exists:**
+
+1. Read the existing {outputFile} completely
+2. Parse all existing epics and their stories (look for `## Epic N:` sections and any story content within them)
+3. For each existing epic that contains stories (stories with any status — backlog, in-progress, done, etc.):
+   - Present the epic title, goal, and a summary of its stories (count, statuses)
+   - Ask: **"Epic N: [Title] has [X] stories ([Y] done, [Z] in-progress, [W] backlog). Keep this epic and its stories? [K] Keep / [R] Remove"**
+   - Wait for user response before proceeding to the next epic
+4. For existing epics with NO stories: note them but do not prompt — they will be redesigned in Step 2
+5. After all epics are reviewed:
+   - Display a summary: "Keeping [N] epics with stories, [M] epics will be redesigned"
+   - Store the preserved epics and their full content (including stories) for reinsertion
+   - Add `preservedEpics: [epic-1, epic-3, ...]` to the output file frontmatter listing kept epic IDs
+
+6. Initialize {outputFile} from {epicsTemplate} but **append all preserved epic sections (with their stories intact) at the end of the document**
+
+**IF {outputFile} does NOT exist:**
 
 1. Copy the entire template to {outputFile}
-2. Replace {{project_name}} with the actual project name
-3. Replace placeholder sections with extracted requirements:
+
+**In both cases, then:**
+
+1. Replace {{project_name}} with the actual project name
+2. Replace placeholder sections with extracted requirements:
    - {{fr_list}} → extracted FRs
    - {{nfr_list}} → extracted NFRs
    - {{ar_list}} → extracted ARs (with AR- IDs)
-4. Leave {{requirements_coverage_map}} and {{epics_list}} as placeholders for now
+3. Leave {{requirements_coverage_map}} and {{epics_list}} as placeholders for now
 
 ### 8. Present Extracted Requirements
 
@@ -255,6 +276,7 @@ ONLY WHEN C is selected and all requirements are saved to document and frontmatt
 - All NFRs extracted and formatted correctly
 - Additional requirements from Architecture/UX identified and assigned AR- IDs
 - Template initialized with requirements
+- If existing epics.md found: user prompted per-epic for keep/remove, preserved epics retained with stories intact
 - User confirms requirements are complete and accurate
 
 ### ❌ SYSTEM FAILURE:
@@ -263,5 +285,6 @@ ONLY WHEN C is selected and all requirements are saved to document and frontmatt
 - Incomplete requirements extraction
 - Template not properly initialized
 - Not saving requirements to output file
+- Existing epics.md overwritten without prompting user about existing epics with stories
 
 **Master Rule:** Skipping steps, optimizing sequences, or not following exact instructions is FORBIDDEN and constitutes SYSTEM FAILURE.
