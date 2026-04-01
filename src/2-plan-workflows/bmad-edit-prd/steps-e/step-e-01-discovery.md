@@ -187,9 +187,9 @@ Display: "**Edit Requirements Understood**
 {If validation report: "**Validation Guide:** Yes - will use validation report findings"}
 **Edit Goals:** {summary of user's requirements}
 
-**Proceeding to deep review and analysis...**"
+**Before building a change plan, let's make sure we haven't missed anything...**"
 
-Read fully and follow: next step (step-e-02-review.md)
+Read fully and follow: next step (step-e-01c-elicitation.md)
 
 **IF PRD is Legacy (Non-Standard) AND no validation report:**
 
@@ -217,7 +217,7 @@ Present MENU OPTIONS below for user selection
 #### Menu Handling Logic:
 
 - IF C (Convert): Read fully and follow: {altStepFile} (step-e-01b-legacy-conversion.md)
-- IF E (Edit As-Is): Display "Proceeding with edits..." then load next step
+- IF E (Edit As-Is): Display "Proceeding with gap discovery..." then load step-e-01c-elicitation.md
 - IF X (Exit): Display summary and exit
 - IF Any other: help user, then redisplay menu
 
