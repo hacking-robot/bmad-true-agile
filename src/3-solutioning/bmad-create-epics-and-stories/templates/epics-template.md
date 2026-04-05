@@ -68,6 +68,11 @@ This document defines the epic structure for {{project_name}}, organizing requir
 
 {{epic_dependencies_N}}
 
+### Epic {{N}} Partial Coverage Notes
+
+<!-- Added by sprint review when a story covers only part of a requirement -->
+<!-- Format: - [REQ_ID] partially addressed by Story {key} (Sprint {N}): {what remains} -->
+
 ---
 
 <!-- End epic repeat -->

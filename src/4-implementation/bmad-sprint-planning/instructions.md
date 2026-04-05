@@ -233,32 +233,27 @@ The codebase differs from the PRD document:
   </check>
 </check>
 
-<action>Scan completed stories from previous sprints for potentially incomplete requirements:
-  - Review stories marked as "done"
-  - Check if all FRs, NFRs, ARCH requirements covered by those stories are actually implemented
-</action>
+<action>For each selected epic, scan the epic's ### Partial Coverage Notes section for requirements flagged by previous sprint reviews</action>
 
-<check if="incomplete requirements found">
+<check if="partial coverage notes exist in any selected epic">
   <output>
 ──────────────────────────────────────────────────────────────
-📋 **POTENTIALLY INCOMPLETE REQUIREMENTS DETECTED**
+📋 **PARTIALLY COVERED REQUIREMENTS DETECTED**
 
-These requirements were in stories marked "done" but may not be fully implemented:
+These requirements were only partially addressed in previous sprints:
 
-| Requirement | Type | Description | From Story |
-|-------------|------|-------------|------------|
-{{for each incomplete requirement}}
-| {{req_id}} | {{req_type}} | {{req_description}} | {{story_key}} |
+{{for each partial coverage note}}
+- {{partial_coverage_note}}
 {{end}}
 
-You may want to include these in the new sprint to ensure completion.
+They will be included in remaining requirements for this sprint.
 ──────────────────────────────────────────────────────────────
   </output>
 
-  <ask>Include these incomplete requirements in sprint planning? (Y/n)</ask>
+  <ask>Include the remaining work from these partially covered requirements in this sprint? (Y/n)</ask>
 
   <check if="user says yes">
-    <action>Add incomplete requirements to {{remaining_requirements}} for story creation</action>
+    <action>Add partially covered requirements to {{remaining_requirements}} with a note about what specifically remains, so the agent creates stories for the uncovered parts</action>
   </check>
 </check>
 
@@ -286,7 +281,9 @@ No significant drift detected between planning documents and codebase.
   - Extract `**Architecture requirements:**` from each done story
   - Extract `**Additional requirements addressed:**` from each done story
 </action>
-<action>Calculate remaining requirements = all requirements in Inventory - covered by done stories</action>
+<action>Scan the epic's ### Partial Coverage Notes section for requirements flagged as only partially addressed by previous sprint reviews</action>
+<action>For any requirement found in Partial Coverage Notes, treat it as NOT fully covered — add it back to remaining requirements with a note about what specifically remains unimplemented</action>
+<action>Calculate remaining requirements = all requirements in Inventory - covered by done stories, adding back any partially covered requirements from Partial Coverage Notes</action>
 <action>Identify NFRs relevant to this epic's domain (from NFR list)</action>
 <action>Identify ARCH requirements not yet covered (from Architecture Requirements list)</action>
 <action>Identify AR requirements not yet covered (from Additional Requirements list)</action>

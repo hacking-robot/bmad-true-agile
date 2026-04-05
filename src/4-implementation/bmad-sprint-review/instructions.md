@@ -118,6 +118,42 @@ Proceeding with sprint review...
   </output>
 </step>
 
+<step n="3.5" goal="Check Requirement Coverage">
+  <action>For each story with status "done" in this sprint:</action>
+  <action>  Load the requirement IDs from the story's FRs addressed, NFRs addressed, Architecture requirements, and Additional requirements addressed metadata</action>
+  <action>  For each requirement ID, load the full requirement text from the PRD/Architecture/epic's Requirements Inventory</action>
+  <action>  Compare the requirement's full text against the story's acceptance criteria</action>
+  <action>  If the AC clearly does not cover the full scope of the requirement, flag it as partially covered</action>
+  <action>For each partially covered requirement:</action>
+  <action>  Determine what remains unimplemented by comparing requirement text vs. AC</action>
+  <action>  Prepare a note for the epic file's Partial Coverage Notes section in this format:</action>
+  <action>    - [FR3] partially addressed by Story 1-2-user-auth (Sprint 1): social login and 2FA registration remain</action>
+
+  <check if="partial coverage found">
+    <output>
+═══════════════════════════════════════════════════════════════
+🔍 Requirements Coverage Check
+═══════════════════════════════════════════════════════════════
+
+| Requirement | Story | Status | What Remains |
+|-------------|-------|--------|-------------|
+{{for each checked requirement}}
+| {{req_id}} | {{story_key}} | {{coverage_status}} | {{what_remains}} |
+{{end}}
+    </output>
+
+    <ask>Review the partial coverage notes above. Confirm or adjust before writing them to the epic files? (Y/adjust)</ask>
+
+    <action>Write confirmed notes to each epic file's ### Partial Coverage Notes section</action>
+  </check>
+
+  <check if="no partial coverage found">
+    <output>
+✅ All done stories fully cover their claimed requirements.
+    </output>
+  </check>
+</step>
+
 <step n="4" goal="Handle incomplete stories">
   <action>For each story with status != done:</action>
   <action>Ask user how to handle it</action>
