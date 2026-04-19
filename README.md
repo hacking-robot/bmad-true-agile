@@ -15,10 +15,10 @@ A drop-in replacement for the official BMad Method `bmm` module with True Agile 
 
 ```bash
 git clone https://github.com/hacking-robot/bmad-true-agile.git
-npx bmad-method install --custom-content ./bmad-true-agile/src
+npx bmad-method install --custom-source ./bmad-true-agile/src
 ```
 
-The installer will walk you through the rest. When prompted to select modules, **do not select the official `bmm` module** -- this repo replaces it.
+The installer will prompt *How would you like to proceed?* — choose **Modify BMAD Installation**. When prompted to select modules, **do not select the official `bmm` module** -- this repo replaces it.
 
 To update, pull the latest and re-run the same command.
 
